@@ -6,7 +6,7 @@ import Contact from "./Contact";
 //import "./homeStyle.css"
 import CommonBooks from "./CommonBooks";
 import Footer from "../Footer";
-
+import React  from 'react';
 
 function Home() {
     return (

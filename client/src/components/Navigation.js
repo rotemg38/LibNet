@@ -1,10 +1,9 @@
-
+import React  from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import {CgProfile} from 'react-icons/cg'
 import {ImBooks} from 'react-icons/im'
-
 
 function Navb() {
     return (
@@ -20,10 +19,18 @@ function Navb() {
                 <Nav.Link href="/events">Events</Nav.Link>
             </Nav>
             <Nav>
+            {localStorage.getItem("userId")!=null? 
+                <Nav.Link href="/profile">
+                    <CgProfile size={20}/>&nbsp;
+                    Hello, {localStorage.getItem("userName")}
+                </Nav.Link>
+            : 
                 <Nav.Link href="/login">
                     <CgProfile size={20}/>&nbsp;
                     Log In
                 </Nav.Link>
+                }
+               
             </Nav>
             </Navbar.Collapse>
         </Container>

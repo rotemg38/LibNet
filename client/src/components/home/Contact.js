@@ -1,4 +1,5 @@
 
+import React  from 'react';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import {ImPhone, ImMap, ImClock2} from 'react-icons/im'
@@ -6,6 +7,13 @@ import {GrMail} from 'react-icons/gr'
 import { MDBInput, MDBCheckbox, MDBBtn, MDBValidation, MDBValidationItem,MDBTextArea } from 'mdb-react-ui-kit';
 
 function Contact() {
+    const handleSubmit = (event) => {
+        event.preventDefault();
+      
+        // Handle form submission logic here
+        console.log('Form submitted successfully');
+      };
+      
     return (
         <>
             
@@ -58,7 +66,7 @@ function Contact() {
                 <br/>
                 
                 <div className='justify-center'>
-                    <MDBValidation noValidate id='formContact' className='text-center' style={{ width: '100%', maxWidth: '500px' }}>
+                    <MDBValidation noValidate id='formContact' className='text-center' onSubmit={handleSubmit} style={{ width: '100%', maxWidth: '500px' }} >
                     
                                 <MDBValidationItem invalid feedback='Please provide your name.'>
                                     <MDBInput label='Name' v-model='name' wrapperclassname='mb-4' required />
