@@ -22,23 +22,25 @@ function Search({updateResults}) {
   useEffect(() => {
     async function fetchAdvSearch() {
       const data = await getAdvancedSearchInfo();
-      var lst = []
-      data["location"].map((item)=>{
-        lst.push({ "value": item, "label": item })
-      })
-      setLocations(lst);
+      if(data !== {} && data !== undefined){
+        var lst = []
+        data["location"].map((item)=>{
+          lst.push({ "value": item, "label": item })
+        })
+        setLocations(lst);
 
-      lst = []
-      data["language"].map((item)=>{
-        lst.push({ "value": item, "label": item })
-      })
-      setLanguages(lst);
+        lst = []
+        data["language"].map((item)=>{
+          lst.push({ "value": item, "label": item })
+        })
+        setLanguages(lst);
 
-      lst = []
-      data["category"].map((item)=>{
-        lst.push({ "value": item, "label": item })
-      })
-      setCategories(lst);
+        lst = []
+        data["category"].map((item)=>{
+          lst.push({ "value": item, "label": item })
+        })
+        setCategories(lst);
+      }
     }
     fetchAdvSearch();
   }, []);
@@ -103,13 +105,13 @@ function Search({updateResults}) {
         searchQuery = filter
       }
       
-      if(selectedLocations.length != 0){
+      if(selectedLocations.length !== 0){
         searchQuery["location"] = {"$in": selectedLocations.map((itm)=>{return itm["value"]})}
       }
-      if(selectedCategories.length != 0){
+      if(selectedCategories.length !== 0){
         searchQuery["category"] = {"$in": selectedCategories.map((itm)=>{return itm["value"]})}
       }
-      if(selectedLanguages.length != 0){
+      if(selectedLanguages.length !== 0){
         searchQuery["language"] = {"$in": selectedLanguages.map((itm)=>{return itm["value"]})}
       }
     }

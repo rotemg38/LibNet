@@ -15,7 +15,6 @@ export default function InviteBookModal({userId,show, setShow}) {
     const [invitedBooks, setInvitedBooks] = useState([])
     const [selectedBook, setSelectedBook] = useState([-1,true])
     const [booksNum, setBooksNum] = useState(0)
-    const [limit, setLimit] = useState(2)
 
     const handleClose = () => {setShow(false);setInvitedBooks([])}
     
@@ -77,35 +76,38 @@ export default function InviteBookModal({userId,show, setShow}) {
     useEffect(() => {
         async function fetchData() {
           try {
+            let allreadyOrderedBooks = await getAllOrderBooksByFilter({idUser: userId, status: "waiting"})
+            setBooksNum(allreadyOrderedBooks.length)
             let books = await getAllBooks()
             let booksData = []
             books.map((book)=>{
-                
-                let strId = "btnActionInvite"+book.idBook
-                let b = {"action": 
-                                <MDBBtn 
-                                id={strId}
-                                color='link' 
-                                rounded 
-                                size='sm' 
-                                style={{fontSize: "small"}} 
-                                onClick={() => {
-                                    setSelectedBook([book.idBook, document.getElementById(strId).checked])
-                                }}
-                                >
-                                    <GrCart/>
-                                </MDBBtn>             
-                }
-                
-                b["idBook"] = book.idBook
-                b["bookName"] = book.bookName
-                b["category"] = book.category
-                b["author"] = book.author
-                b["copies"] = book.copies
-                b["copyAvailable"] = book.copyAvailable
-                b["location"] = book.location
+                if(allreadyOrderedBooks.find(elm=> elm.idBook === book.idBook) === undefined){
+                    let strId = "btnActionInvite"+book.idBook
+                    let b = {"action": 
+                                    <MDBBtn 
+                                    id={strId}
+                                    color='link' 
+                                    rounded 
+                                    size='sm' 
+                                    style={{fontSize: "small"}} 
+                                    onClick={() => {
+                                        setSelectedBook([book.idBook, document.getElementById(strId).checked])
+                                    }}
+                                    >
+                                        <GrCart/>
+                                    </MDBBtn>             
+                    }
+                    
+                    b["idBook"] = book.idBook
+                    b["bookName"] = book.bookName
+                    b["category"] = book.category
+                    b["author"] = book.author
+                    b["copies"] = book.copies
+                    b["copyAvailable"] = book.copyAvailable
+                    b["location"] = book.location
 
-                booksData.push(b)
+                    booksData.push(b)
+                }
                 
             })
             setData(booksData);
@@ -114,14 +116,9 @@ export default function InviteBookModal({userId,show, setShow}) {
           }
         }
 
-        async function fetchOrdered(){
-            let res = await getAllOrderBooksByFilter({idUser: userId, status: "waiting"})
-            console.log(res.length)
-            setBooksNum(res.length)
-        }
+        
 
         fetchData();
-        fetchOrdered();
     }, [show]);
 
     useEffect(()=>{

@@ -1,15 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCardImage, MDBTypography, MDBIcon, MDBCardLink } from 'mdb-react-ui-kit';
-
+import React from 'react';
+import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardBody, MDBTypography} from 'mdb-react-ui-kit';
+import LateUsersTable from './LateUsersTable';
+import AgePie from './AgePie';
+import TopBorrowedBooks from './TopBorrowed';
+import TopRatedBooks from './TopRated';
 
 export default function BoardManager() {
    
-    
-    useEffect(() => {
-       
-        
-      }, []);
-
   return (
     
   
@@ -23,41 +20,10 @@ export default function BoardManager() {
               
                 <MDBCol>
                   <MDBCardBody className="p-4">
-                    <MDBTypography tag="h6">Personal Information</MDBTypography>
+                    <MDBTypography tag="h3">Users Late To Return</MDBTypography>
                     <hr className="mt-0" />
-                   
                     <MDBRow className="pt-1">
-                      <MDBCol size="6" className="mb-3">
-                        <MDBTypography tag="h6">Address</MDBTypography>
-                        <MDBCardText className="text-muted">user.address</MDBCardText>
-                      </MDBCol>
-                    </MDBRow>
-                    <MDBRow className="pt-1">
-                      <MDBCol size="6" className="mb-3">
-                        <MDBTypography tag="h6">Age</MDBTypography>
-                        <MDBCardText className="text-muted">user.age</MDBCardText>
-                      </MDBCol>
-                    </MDBRow>
-                    <MDBRow className="pt-1">
-                      <MDBCol size="6" className="mb-3">
-                        <MDBTypography tag="h6">Password</MDBTypography>
-                        <MDBCardText className="text-muted">********</MDBCardText>
-                      </MDBCol>
-                    </MDBRow>
-
-                    <MDBTypography tag="h6">Subscription Information</MDBTypography>
-                    <hr className="mt-0" />
-
-                    <MDBRow className="pt-1">
-                      <MDBCol size="6" className="mb-3">
-                        <MDBTypography tag="h6">Limit Borrow Books</MDBTypography>
-                        <MDBCardText className="text-muted">2</MDBCardText>
-                      </MDBCol>
-                    </MDBRow>
-                    <MDBRow className="pt-1">
-                      <MDBCol size="6" className="mb-3">
-                        <MDBTypography tag="h6">Borrowed Books History</MDBTypography>
-                      </MDBCol>
+                      <LateUsersTable></LateUsersTable>
                     </MDBRow>
                   </MDBCardBody>
                 </MDBCol>
@@ -71,13 +37,13 @@ export default function BoardManager() {
              
                 <MDBCol >
                   <MDBCardBody className="p-4">
-                    <MDBTypography tag="h6">Borrowed Books History</MDBTypography>
+                    <MDBTypography tag="h3">Most Borrowed Books</MDBTypography>
                     <hr className="mt-0" />
                     
                     <MDBRow className="pt-1">
-                        {/**todo */}
+                      <TopBorrowedBooks></TopBorrowedBooks>
+                        
                     </MDBRow>
-
                   </MDBCardBody>
                 </MDBCol>
               </MDBRow>
@@ -96,11 +62,11 @@ export default function BoardManager() {
              
                 <MDBCol >
                   <MDBCardBody className="p-4">
-                    <MDBTypography tag="h6">Borrowed Books</MDBTypography>
+                    <MDBTypography tag="h3">Users Ages</MDBTypography>
                     <hr className="mt-0" />
                     
                     <MDBRow className="pt-1">
-                        {/**todo */}
+                        <AgePie></AgePie>
                     </MDBRow>
 
                   </MDBCardBody>
@@ -114,11 +80,11 @@ export default function BoardManager() {
              
                 <MDBCol >
                   <MDBCardBody className="p-4">
-                    <MDBTypography tag="h6">Invited Books</MDBTypography>
+                    <MDBTypography tag="h3">Top Rated Books</MDBTypography>
                     <hr className="mt-0" />
                     
                     <MDBRow className="pt-1">
-                        {/**todo */}
+                        <TopRatedBooks></TopRatedBooks>
                     </MDBRow>
 
                   </MDBCardBody>

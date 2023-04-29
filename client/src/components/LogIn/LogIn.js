@@ -14,7 +14,7 @@ import { useNavigate } from 'react-router-dom';
 import { signIn } from '../../DBHandle/repoUsers';
 import React  from 'react';
 
-function LogIn() {
+function LogIn({setConnected}) {
     const navigate = useNavigate()
     const [error, setError] = useState("false")
     const [mail, setMail] = useState("")
@@ -29,7 +29,7 @@ function LogIn() {
         } else {
             try {
                 const res = await signIn({"mail":mail, "password":password})
-                if(res == null){
+                if(res === null){
                     
                    document.getElementsByName("formLogIn")[0].classList.remove("was-validated")
                    document.getElementById("password").classList.add("is-invalid")
@@ -41,9 +41,12 @@ function LogIn() {
                     localStorage.setItem("userId", res["userId"]);
                     localStorage.setItem("userName", res["firstName"]);
                     localStorage.setItem("isAdmin", res["admin"]);
+                    setConnected(true)
+                    //Redirect to home page
+                    navigate("/")
+                    
                 }
-                //Redirect to home page
-                navigate("/")
+               
             } catch (err) {
                 console.error(err);
             }

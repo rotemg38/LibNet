@@ -3,12 +3,12 @@ const BorrowBooksService = require("../services/borrowBookService");
 
 module.exports = class BorrowBook{
 
-   static async apiGetBorrowUsersByFilter(req, res, next){
+   static async apiGetTopBorrowedBooks(req, res, next){
       try {
-        const books = await BorrowBooksService.getBorrowUsersByFilter(req.body);
+        const books = await BorrowBooksService.getTopBorrowedBooks();
   
         if(!books){
-           res.status(404).json("No users found!")
+           res.status(404).json("No books found!")
         }else{
           res.json(books);
         }
@@ -16,24 +16,54 @@ module.exports = class BorrowBook{
       } catch (error) {
          res.status(500).json({error: error})
       }
+   }
 
-  }
-
-    static async apiGetBorrowBooksByFilter(req, res, next){
-        try {
-          const books = await BorrowBooksService.getBorrowBooksByFilter(req.body);
-      
-          if(!books){
-             res.status(404).json("No books found!")
-          }else{
-            res.json(books);
-          }
-          
-        } catch (error) {
-           res.status(500).json({error: error})
+   static async apiGetBorrowUsersByFilter(req, res, next){
+      try {
+        const users = await BorrowBooksService.getBorrowUsersByFilter(req.body);
+  
+        if(!users){
+           res.status(404).json("No users found!")
+        }else{
+          res.json(users);
         }
- 
-    }
+        
+      } catch (error) {
+         res.status(500).json({error: error})
+      }
+   }
+
+   static async apiGetBorrowBooksByFilter(req, res, next){
+      try {
+         const books = await BorrowBooksService.getBorrowBooksByFilter(req.body);
+   
+         if(!books){
+            res.status(404).json("No books found!")
+         }else{
+         res.json(books);
+         }
+         
+      } catch (error) {
+         res.status(500).json({error: error})
+      }
+
+   }
+
+   static async apiGetLateUsersBorrows(req, res, next){
+      try {
+         const users = await BorrowBooksService.getLateUsersBorrows(req.body);
+   
+         if(!users){
+            res.status(404).json("No users found!")
+         }else{
+         res.json(users);
+         }
+         
+      } catch (error) {
+         res.status(500).json({error: error})
+      }
+
+   }
     
 
    static async apiGetAllBorrowBooks(req, res, next){

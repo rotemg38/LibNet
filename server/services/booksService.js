@@ -46,11 +46,32 @@ module.exports = class BooksService{
             console.log(`Could not fetch books ${error}`)
         }
     }
+    
+    static async getTop4NewBooks(){
+        try {
+            const currentDate = new Date();
+            const currentMonth = currentDate.getMonth() + 1;
+            const currentYear = currentDate.getFullYear();
+
+            const top4Books = await Book.find({
+                createdAt: {
+                $gte: new Date(currentYear, currentMonth - 1, 1),
+                $lt: new Date(currentYear, currentMonth, 1)
+                }
+            }).sort({ createdAt: -1 }).limit(4);
+
+            return top4Books
+
+        } catch (error) {
+            console.log(`Could not fetch books ${error}`)
+        }
+    }
 
     static async createBook(data){
         try {
             let bookid = await Book.count();
             data["idBook"] = bookid + 1
+            data["createdAt"] = Date.now()
             const newBook = JSON.parse(JSON.stringify(data));
             const response = await new Book(newBook).save();
             return response;

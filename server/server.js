@@ -4,6 +4,8 @@ const books = require("./routes/booksRoutes");
 const users = require("./routes/userRouter");
 const borrowBook = require("./routes/borrowBookRouter");
 const orderBook = require("./routes/orderBookRouter");
+const ratings = require("./routes/ratingRoutes");
+const requests = require("./routes/requestRoutes");
 
 const app = express()
 var cors = require('cors')
@@ -31,3 +33,5 @@ app.use("/api/books", books);
 app.use("/api/users", users);
 app.use("/api/borrowBooks", borrowBook);
 app.use("/api/orderBooks", orderBook);
+app.use("/api/ratings", ratings);
+app.use("/api/requests", requests);

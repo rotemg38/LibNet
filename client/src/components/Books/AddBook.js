@@ -1,6 +1,6 @@
 import React  from 'react';
 import { useState } from "react";
-import { Form, Button } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { addBook } from "../../DBHandle/repoBooks";
 import { MDBInput, MDBCheckbox, MDBBtn, MDBValidation, MDBValidationItem,MDBTextArea } from 'mdb-react-ui-kit';
 import { Container, Row, Col } from 'react-bootstrap';
@@ -34,7 +34,7 @@ function AddBook({setKey}) {
       event.stopPropagation();
     } else {
         try {
-            console.log(book)
+            
             await addBook(book);
             // reset the form after adding the book
             setBook({
@@ -54,6 +54,7 @@ function AddBook({setKey}) {
             });
             
             alert("Book added successfully!");
+            setKey("books")
           } catch (error) {
             console.log(error);
             alert("Failed to add the book");

@@ -57,8 +57,20 @@ export async function getUser(idUser) {
         var data = await response.data;
         return data;
     } catch(e){
-        //book not found- thus return null
+        //user not found- thus return null
         return null;   
+    }     
+}
+
+export async function getGroupByAges() {
+    try
+    {
+        var response = await server.get(`/groupAge`);
+        var data = await response.data;
+        return data;
+    } catch(e){
+        //users not found
+        return [];   
     }     
 }
 
@@ -69,7 +81,7 @@ export async function getAllUsers() {
         var data = await response.data;
         return data;
     } catch(e){
-        //book not found- thus return null
+        //users not found- thus return null
         return null;   
     }     
 }

@@ -1,6 +1,5 @@
 import React, {useEffect, useState } from "react";
 import TableSearchPagin from "../Utils/TableSearchPagin";
-import { getAllBorrowUsersByFilter } from "../../DBHandle/repoBorrowBooks.js";
 import { getAllOrderUsersByFilter, updateArriveBook } from "../../DBHandle/repoOrderBooks";
 import Modal from 'react-bootstrap/Modal';
 import { Button } from "react-bootstrap";

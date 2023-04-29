@@ -4,7 +4,12 @@
   "proxy": "http://localhost:5000",
   "private": true,
   "dependencies": {
+    "@coreui/react-chartjs": "^2.1.2",
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
     "@fortawesome/fontawesome-free": "^6.3.0",
+    "@mui/material": "^5.12.1",
+    "@mui/x-data-grid": "^6.2.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -47,5 +52,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.18.6",
+    "@babel/plugin-transform-runtime": "^7.21.4"
   }
 }

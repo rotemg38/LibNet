@@ -5,12 +5,12 @@ module.exports = class OrderBook {
    
    static async apiGetOrderUsersByFilter(req, res, next){
       try {
-        const books = await OrderBooksService.getOrderUsersByFilter(req.body);
+        const users = await OrderBooksService.getOrderUsersByFilter(req.body);
   
-        if(!books){
+        if(!users){
            res.status(404).json("No users found!")
         }else{
-          res.json(books);
+          res.json(users);
         }
         
       } catch (error) {

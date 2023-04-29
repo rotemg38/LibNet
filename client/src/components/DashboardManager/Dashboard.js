@@ -2,12 +2,13 @@ import React, { useState }  from 'react';
 import { Col, Row } from 'react-bootstrap';
 import AddUser from '../Users/AddUser';
 import AddBook from '../Books/AddBook';
-import BoardManager from './BoardManager';
+import BoardManager from './Board/BoardManager';
 import BooksTable from './BooksTable';
 import SideBarManager from './SideBarManager'
 import UsersActions from './UsersActions';
 import UsersTable from './UsersTable';
 import BooksActions from './BooksActions';
+import Profile from '../Profile/Profile';
 
 export default function DashboardManager() {
   const [key, setKey] = useState("board")
@@ -25,6 +26,8 @@ export default function DashboardManager() {
         return <UsersActions setKey={setKey} userId={userId} />;
       case 'addUser':
         return <AddUser setKey={setKey}/>
+      case 'profile':
+        return <Profile setKey={setKey} userId={userId}/>
       case 'booksActions':
         return <BooksActions setKey={setKey} bookId={bookId}/>
       case 'addBook':

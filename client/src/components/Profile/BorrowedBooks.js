@@ -3,7 +3,7 @@ import TableSearchPagin from "../Utils/TableSearchPagin";
 import { getAllBorrowedBooksByFilter } from "../../DBHandle/repoBorrowBooks.js";
   
 
-export default function BorrowedBooks() {
+export default function BorrowedBooks({userId}) {
   
   const [data, setData] = useState([]);
   const columns = 
@@ -30,7 +30,7 @@ export default function BorrowedBooks() {
     async function fetchData() {
       try {
         
-        let res = await getAllBorrowedBooksByFilter({idUser: localStorage.getItem("userId"), status: "borrowed"})
+        let res = await getAllBorrowedBooksByFilter({idUser: userId, status: "borrowed"})
         
         setData(res);
       } catch (error) {

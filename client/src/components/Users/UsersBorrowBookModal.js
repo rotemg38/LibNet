@@ -2,7 +2,6 @@ import React, {useEffect, useState } from "react";
 import TableSearchPagin from "../Utils/TableSearchPagin";
 import { getAllBorrowUsersByFilter } from "../../DBHandle/repoBorrowBooks.js";
 import Modal from 'react-bootstrap/Modal';
-import { Button } from "react-bootstrap";
 import './StyleModals.css'
 
 export default function UsersBorrow({bookId, show, setShow}) {

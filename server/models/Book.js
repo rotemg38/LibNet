@@ -75,6 +75,10 @@ const booksSchema = Schema({
 
     seriesName : {
       type: String
+    },
+    createdAt: {
+      type: Date,
+      required: true,
     }
 
 });

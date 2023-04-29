@@ -1,9 +1,7 @@
-import { MDBBadge, MDBBtn, MDBCard } from "mdb-react-ui-kit";
-import React, { useMemo, useEffect, useState, useRef } from "react";
-import { Container } from "react-bootstrap";
+import { MDBBtn, MDBCard } from "mdb-react-ui-kit";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
-import { useTable, useGlobalFilter, usePagination } from "react-table";
 import { getAllUsers } from "../../DBHandle/repoUsers";
 import TableSearchPagin from "../Utils/TableSearchPagin";
 

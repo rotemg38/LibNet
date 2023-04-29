@@ -8,6 +8,7 @@ import { ImCart } from 'react-icons/im';
 import { getAllBooks, updateBooks } from '../../DBHandle/repoBooks';
 import { addBorrowBook, getAllBorrowedBooksByFilter } from '../../DBHandle/repoBorrowBooks';
 import { getUser } from '../../DBHandle/repoUsers';
+import { updateOrderBook } from '../../DBHandle/repoOrderBooks';
 import TableSearchPagin from '../Utils/TableSearchPagin';
 import './StyleModals.css'
 
@@ -39,6 +40,11 @@ export default function BorrowBookModal({userId,show, setShow}) {
         try{
             await updateBooks(books)
             await addBorrowBook(borowBooks)
+            for (let index = 0; index < borowBooks.length; index++) {
+                const element = borowBooks[index];
+                await updateOrderBook(element.idBook,element.idUser,{"filter":{"status": "waiting"},"status":"received"})    
+            }
+            
             alert("Book borrowed successfully!");
             handleClose();
         }catch (error) {

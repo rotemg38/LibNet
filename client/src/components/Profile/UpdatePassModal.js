@@ -4,7 +4,7 @@ import Modal from 'react-bootstrap/Modal';
 import { MDBInput, MDBBtn, MDBValidation, MDBValidationItem } from 'mdb-react-ui-kit';
 import { updateUserPass } from '../../DBHandle/repoUsers';
 
-export default function UpdatePassModal({show, setShow}) {
+export default function UpdatePassModal({userId, show, setShow}) {
     const [pass, setPass] = useState({pre:"", new:""})
 
     const handleSubmit = async (event) => {
@@ -15,8 +15,8 @@ export default function UpdatePassModal({show, setShow}) {
           event.stopPropagation();
         } else {
             try {
-                //await updateUser(localStorage.getItem("userId"), user)
-                await updateUserPass(localStorage.getItem("userId"), pass)
+                //await updateUser(userId, user)
+                await updateUserPass(userId, pass)
                 alert("Password updated successfully!");
                 
                 setPass({pre:"", new:""})

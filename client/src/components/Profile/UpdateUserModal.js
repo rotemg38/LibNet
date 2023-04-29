@@ -4,7 +4,7 @@ import Modal from 'react-bootstrap/Modal';
 import { MDBInput, MDBValidation, MDBValidationItem } from 'mdb-react-ui-kit';
 import { updateUser } from '../../DBHandle/repoUsers';
 
-export default function UpdateUserModal({userInfo,setUserInfo ,show, setShow}) {
+export default function UpdateUserModal({userId, userInfo,setUserInfo ,show, setShow}) {
     const [img, setImg] = useState();
     const [user, setUser] = useState({});
     
@@ -20,7 +20,7 @@ export default function UpdateUserModal({userInfo,setUserInfo ,show, setShow}) {
           event.stopPropagation();
         } else {
             try {
-                await updateUser(localStorage.getItem("userId"), user)
+                await updateUser(userId, user)
                 
                 alert("User updated successfully!");
                 setUserInfo(user)

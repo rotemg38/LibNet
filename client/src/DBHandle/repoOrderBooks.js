@@ -6,7 +6,7 @@ const server = axios.create({
     baseURL: "http://localhost:3000/api/orderBooks" 
   });
 
-/* HELPFUL FUNCTION TO USE THE DB REGARDING USERS TABLE: */
+/* HELPFUL FUNCTION TO USE THE DB REGARDING ORDERBOOK TABLE: */
 
 export async function updateOrderBook(idBook, idUser, data) {
 

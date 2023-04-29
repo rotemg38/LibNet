@@ -1,5 +1,5 @@
 import './App.css';
-import React  from 'react';
+import React, { useEffect, useState }  from 'react';
 import Home from './components/home/Home';
 import Navb from './components/Navigation';
 import Catalogue from './components/Catalogue/Catalogue';
@@ -9,25 +9,48 @@ import {
   Routes,
   Route
 } from "react-router-dom";
-import Events from './components/Events/Events';
 import BookInfo from './components/Books/BookPage';
 import Profile from './components/Profile/Profile';
 import DashboardManager from './components/DashboardManager/Dashboard';
+import Inbox from './components/Inbox/Inbox';
+import Forums from './components/Forum/Forums';
 
 function App() {
+  const [connected, setConnected] = useState(false)
+  useEffect(()=>{
+      if(localStorage.getItem("userId")!==null){
+          setConnected(true)
+      }else{
+          setConnected(false)
+      }
+      
+  },[])
+
   return (
    
     <>
-      <Navb></Navb>
+      <Navb connected={connected}></Navb>
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Home/>}></Route>
-          <Route path='/login' element={<LogIn />}></Route>
-          <Route path='/profile' element={<Profile />}></Route>
+          {!connected?
+          <Route path='/login' element={<LogIn setConnected={setConnected}/>}></Route>
+          :<></>}
+          {connected?
+          <>
+            <Route path='/profile' element={<Profile setKey={undefined} userId={localStorage.getItem("userId")}/>}></Route>
+            <Route path='/forum' element={<Forums />}></Route>
+          </>
+          :<></>}
           <Route path='/catalogue' element={<Catalogue />}></Route>
-          <Route path='/events' element={<Events />}></Route>
           <Route path='/book/:id' element={<BookInfo />}></Route> 
-          <Route path='/DashboardManager' element={<DashboardManager/>}></Route>
+          {connected && localStorage.getItem("isAdmin") === 'true'?
+          <>
+          <Route path='/dashboardManager' element={<DashboardManager/>}></Route>
+          <Route path='/inbox' element={<Inbox/>}></Route>
+          </>
+          :<></>}
+          
         </Routes>
       </BrowserRouter>
       

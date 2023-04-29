@@ -3,10 +3,10 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
 import { ImPlus } from 'react-icons/im';
-import { Col, Row } from 'react-bootstrap';
+import { Badge, Col, Row } from 'react-bootstrap';
 import { addOrderBook, getAllOrderBooksByFilter } from '../../DBHandle/repoOrderBooks';
 
-function BookCard({idBook,bookName, author, srcImg, showInvite,numInvite, setNumInvite}) {
+function BookCard({copyAvailable, idBook,bookName, author, srcImg, showInvite,numInvite, setNumInvite}) {
   const [invite, setInvite] = useState(true)
   
   useEffect(()=>{
@@ -24,40 +24,50 @@ function BookCard({idBook,bookName, author, srcImg, showInvite,numInvite, setNum
         }
       }
     }
-    if(showInvite)
+    if(showInvite && localStorage.getItem("userId") !== null)
       fetchData()
     
   },[])
 
   return (
+    
     <Card style={{width:'18rem', alignSelf:'center'}}>
       <Card.Img variant="top"  src={srcImg} style={{ alignSelf:'center'}}/>
+       {copyAvailable > 0?
+          <Badge bg='success' className='float-start'>Available</Badge>
+          :copyAvailable === 0?
+          <Badge bg='danger'>Not Available</Badge>:<></>}
+      
       <Card.Body style={{ alignSelf:'center'}}>
         <Card.Title> {bookName}</Card.Title>
         <Card.Subtitle> {author}</Card.Subtitle>
       </Card.Body>
+     
      <Card.Footer >
       <Row>
-        <Col md="10" className='justify-center'>
+        <Col md="2">
+        
+        </Col>
+        <Col md="8" className='justify-center'>
           <Link to={`/book/${idBook}`}>
             <Button variant="primary">Details</Button>
           </Link>
         </Col>
         <Col md="2">
-          {(invite && showInvite)?  
+          {(invite && showInvite && localStorage.getItem("userId") !== null)?  
           <a href='#' title='invite book' onClick={async ()=>{            
             try{
                 
-                if(numInvite < 2){
-                  await addOrderBook([{"idUser": localStorage.getItem("userId"), "idBook": idBook}])
-                  setInvite(false)
-                  let updatedNum = numInvite+1
-                  setNumInvite(updatedNum)
-                  
-                  alert("Book ordered successfully!");
-                }else{
-                  alert("Sorry, you cant order more than 2 books");
-                }
+              if(numInvite < 2){
+                await addOrderBook([{"idUser": localStorage.getItem("userId"), "idBook": idBook}])
+                setInvite(false)
+                let updatedNum = numInvite+1
+                setNumInvite(updatedNum)
+                
+                alert("Book ordered successfully!");
+              }else{
+                alert("Sorry, you cant order more than 2 books");
+              }
                 
             }catch (error) {
                 console.log(error);

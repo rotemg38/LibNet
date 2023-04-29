@@ -1,8 +1,8 @@
 import React  from 'react';
 import { useState } from "react";
-import { Form, Button } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { addUser } from "../../DBHandle/repoUsers";
-import { MDBInput, MDBCheckbox, MDBBtn, MDBValidation, MDBValidationItem,MDBTextArea } from 'mdb-react-ui-kit';
+import { MDBInput, MDBBtn, MDBValidation, MDBValidationItem } from 'mdb-react-ui-kit';
 import { Container, Row, Col } from 'react-bootstrap';
 import { CgArrowLeft } from 'react-icons/cg';
 
@@ -28,7 +28,6 @@ function AddUser({setKey}) {
       event.stopPropagation();
     } else {
         try {
-            //console.log(user)
             await addUser(user);
             // reset the form after adding the book
             setUser({
@@ -53,7 +52,7 @@ function AddUser({setKey}) {
 
   const handleChange = (event) => {
     const { name, value } = event.target; 
-    if(name == "firstName"){
+    if(name === "firstName"){
         setUser((prevUser) => ({
             ...prevUser,
             ["password"]: value+'123',

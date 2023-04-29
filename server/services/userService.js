@@ -3,6 +3,39 @@ const User = require("../models/User");
 
 module.exports = class UserService{
 
+    static async getGroupByAges(){
+        try {
+            const agg = [
+                {
+                  $group: {
+                    _id: {
+                      $switch: {
+                        branches: [
+                          { case: { $lte: ["$age", 18] }, then: "0-18" },
+                          { case: { $lte: ["$age", 25] }, then: "18-25" },
+                          { case: { $lte: ["$age", 32] }, then: "25-32" },
+                          { case: { $lte: ["$age", 50] }, then: "32-50" },
+                          { case: { $gt: ["$age", 50] }, then: "50-max" }
+                        ],
+                        default: "Unknown"
+                      }
+                    },
+                    count: { $sum: 1 }
+                  }
+                },
+                {
+                  $sort: {
+                    _id: 1
+                  }
+                }
+            ]
+            const users = await User.aggregate(agg)
+            return users;
+        } catch (error) {
+            console.log(`Could not fetch users ${error}`)
+        }
+    }
+
     static async getUsersByFilter(filter){
         try {
             let userProjection = { 

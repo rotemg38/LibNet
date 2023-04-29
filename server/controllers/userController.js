@@ -66,7 +66,7 @@ module.exports = class User{
     
 
    static async apiGetAllUsers(req, res, next){
-       try {
+      try {
          const users = await UserService.getAllUsers();
          if(!users){
             res.status(404).json("There are no users yet!")
@@ -74,10 +74,23 @@ module.exports = class User{
             res.json(users);
          }
          
-       } catch (error) {
-          res.status(500).json({error: error})
-       }
+      } catch (error) {
+         res.status(500).json({error: error})
+      }
 
+   }
+   static async apiGetGroupByAges(req, res, next){
+      try {
+         const users = await UserService.getGroupByAges();
+         if(!users){
+            res.status(404).json("There are no users yet!")
+         }else{
+            res.json(users);
+         }
+      
+      } catch (error) {
+         res.status(500).json({error: error})
+      }
    }
 
    static async apiGetUserById(req, res, next){

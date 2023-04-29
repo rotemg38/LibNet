@@ -1,11 +1,14 @@
-import React  from 'react';
+import React, { useEffect, useState }  from 'react';
+import { NavDropdown } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import {CgProfile} from 'react-icons/cg'
+import {CgChart, CgLogOut, CgMail, CgProfile} from 'react-icons/cg'
 import {ImBooks} from 'react-icons/im'
 
-function Navb() {
+function Navb({connected}) {
+    
+    
     return (
         <>
         <Navbar className='bg-nav' fixed="top" sticky="top" collapseOnSelect expand="lg" variant="dark">
@@ -16,14 +19,38 @@ function Navb() {
             <Nav className="me-auto">
                 <Nav.Link href="/catalogue">Catalogue</Nav.Link>
                 <Nav.Link href="/#contact">Contact</Nav.Link>
-                <Nav.Link href="/events">Events</Nav.Link>
+                {connected?<Nav.Link href="/forum">Forum</Nav.Link>:<></>}
             </Nav>
             <Nav>
-            {localStorage.getItem("userId")!=null? 
-                <Nav.Link href="/profile">
-                    <CgProfile size={20}/>&nbsp;
-                    Hello, {localStorage.getItem("userName")}
-                </Nav.Link>
+            {connected? 
+                <>
+                
+                <NavDropdown title={'Hello, '+ localStorage.getItem("userName")} >
+                    <NavDropdown.Item href="/profile">
+                        <CgProfile size={20}/>&nbsp;
+                        Profile
+                    </NavDropdown.Item>
+                    {localStorage.getItem("isAdmin") === 'true'?
+                    <>
+                        <NavDropdown.Item href="/dashboardManager">
+                            <CgChart size={20}/>&nbsp;
+                            Dashboard
+                        </NavDropdown.Item>  
+                         <NavDropdown.Item href="/inbox">
+                            <CgMail size={20}/>&nbsp;
+                            Inbox
+                        </NavDropdown.Item>  
+                    </>
+                    :<></>}
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item href="/" onClick={()=>{
+                        localStorage.clear()
+                    }}>
+                        <CgLogOut size={20}/>&nbsp;
+                        LogOut
+                    </NavDropdown.Item>
+                </NavDropdown>
+                </>
             : 
                 <Nav.Link href="/login">
                     <CgProfile size={20}/>&nbsp;

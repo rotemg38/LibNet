@@ -1,14 +1,13 @@
 import { MDBBadge, MDBBtn } from "mdb-react-ui-kit";
-import React, { useMemo, useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { ImCancelCircle } from "react-icons/im";
-import { useTable, useGlobalFilter, usePagination } from "react-table";
-import { Table, Input, FormGroup, Label, Button } from "reactstrap";
 import { getAllOrderBooksByFilter, updateOrderBook } from "../../DBHandle/repoOrderBooks";
 import TableSearchPagin from "../Utils/TableSearchPagin";
 
-const InvitedBooks = () => {
+const InvitedBooks = ({userId}) => {
   const [data, setData] = useState([]);
   const [selectedBook, setSelectedBook] = useState(-1)
+  const [selectedBookDate, setSelectedBookDate] = useState(-1)
 
   const columns = 
   [
@@ -41,7 +40,7 @@ const InvitedBooks = () => {
     
     try {
       
-      let res = await getAllOrderBooksByFilter({idUser: localStorage.getItem("userId"), status: "waiting"})               
+      let res = await getAllOrderBooksByFilter({idUser: userId, status: "waiting"})
       let d = res.map((book)=>{
         if(book.dateArrive !== null){
           book["status"] = <MDBBadge color='info' pill title={book.dateArrive}>arrived</MDBBadge>
@@ -58,6 +57,7 @@ const InvitedBooks = () => {
                             style={{fontSize: "small"}} 
                             onClick={() => {
                                 setSelectedBook(book.idBook)
+                                setSelectedBookDate(book.dateInv)
                             }}
                             >
                               <ImCancelCircle></ImCancelCircle>
@@ -78,7 +78,7 @@ const InvitedBooks = () => {
   useEffect(()=>{
     async function handleCancle(){
       if(selectedBook !== -1){
-        await updateOrderBook(selectedBook,localStorage.getItem("userId"),{"filter":{"status": "waiting"},"status":"cancle"})
+        await updateOrderBook(selectedBook,userId,{"filter":{"status": "waiting", "dateInv": selectedBookDate},"status":"cancle"})
         fetchData()
       }
     }

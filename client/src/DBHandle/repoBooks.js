@@ -86,6 +86,18 @@ export async function getBook(idBook) {
     }     
 }
 
+export async function getTop4NewBooks() {
+    try
+    {
+        var response = await server.get(`/newBooks`);
+        var data = await response.data;
+        return data;
+    } catch(e){
+        //book not found- thus return null
+        return null;   
+    }     
+}
+
 export async function updateBooks(books){
     books.forEach(async book => {
         var response = await server.put(`/book/${book.idBook}`, book);

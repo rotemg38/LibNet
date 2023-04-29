@@ -1,7 +1,6 @@
 import React, { useState }  from 'react';
 import { Button, Row } from 'react-bootstrap';
 import { CgArrowLeft } from 'react-icons/cg';
-import { getUser } from '../../DBHandle/repoUsers';
 import BorrowBookModal from '../Books/BorrowBookModal';
 import InviteBookModal from '../Books/InviteBookModal';
 import LimitBookModal from '../Books/LimitBooksModal';
@@ -13,6 +12,7 @@ export default function UsersActions({setKey, userId}) {
     const [showInvite, setShowInvite] = useState(false);
     const [showLimit, setShowLimit] = useState(false);
     const [showReturn, setShowReturn] = useState(false);
+    
 
     const handleShowBorrowModal = () => setShowBorrow(true);
     const handleShowInviteModal = () => setShowInvite(true);
@@ -45,10 +45,16 @@ export default function UsersActions({setKey, userId}) {
                 <Row style={{padding: "4rem"}}>
                     <Button variant='secondary' style={{padding: "2rem", border:"1px solid"}} onClick={handleShowReturnModal}>Return Book</Button>
                 </Row>
+        </div>
+        <div className="justify-center">
 
-                <Row style={{padding: "4rem"}}>
-                    <Button variant='secondary' style={{padding: "2rem", border:"1px solid"}} onClick={handleShowLimitModal}>Update Limit Books</Button>
-                </Row>
+            <Row style={{padding: "4rem"}}>
+                <Button variant='secondary' style={{padding: "2rem", border:"1px solid"}} onClick={handleShowLimitModal}>Update Limit Books</Button>
+            </Row>
+            
+            <Row style={{padding: "4rem"}}>
+                <Button variant='secondary' style={{padding: "2rem", border:"1px solid"}} onClick={()=>{setKey("profile")}}>User Profile</Button>
+            </Row>
             
         </div>
    

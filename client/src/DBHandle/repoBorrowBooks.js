@@ -6,7 +6,7 @@ const server = axios.create({
     baseURL: "http://localhost:3000/api/borrowBooks" 
   });
 
-/* HELPFUL FUNCTION TO USE THE DB REGARDING USERS TABLE: */
+/* HELPFUL FUNCTION TO USE THE DB REGARDING BORROWBOOK TABLE: */
 
 export async function updateBorrowBooks(idUser, books) {
 
@@ -52,6 +52,33 @@ export async function getAllBorrowedBooksByFilter(filter) {
         
     } catch(e){
         //books not found
+        return [];   
+    }     
+}
+
+export async function getLateUsersBorrows() {
+    try
+    {
+        var response = await server.get("/lateUsers");
+        var data = await response.data;
+        
+        return data;
+        
+    } catch(e){
+        //users not found
+        return [];   
+    }     
+}
+export async function getTopBorrowedBooks() {
+    try
+    {
+        var response = await server.get("/topBorrow");
+        var data = await response.data;
+        
+        return data;
+        
+    } catch(e){
+        //users not found
         return [];   
     }     
 }

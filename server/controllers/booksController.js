@@ -88,6 +88,16 @@ module.exports = class Book{
          res.status(500).json({error: error})
       }
    }
+   
+   static async apiGetTop4NewBooks(req, res, next){
+      try {
+         
+         const book = await BooksService.getTop4NewBooks();
+         res.json(book);
+      } catch (error) {
+         res.status(500).json({error: error})
+      }
+   }
 
    static async apiCreateBook(req, res, next){
       try {

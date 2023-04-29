@@ -1,13 +1,9 @@
-import React, {useEffect, useState, useMemo } from "react";
-//import axios from "axios";
-import { useTable, usePagination, useGlobalFilter } from "react-table";
-import { Table, Form, FormGroup, Input, Label, Button } from "reactstrap";
+import React, {useEffect, useState } from "react";
 import TableSearchPagin from "../Utils/TableSearchPagin";
 import { getAllBorrowedBooksByFilter } from "../../DBHandle/repoBorrowBooks.js";
-//import { Table, Form, FormGroup, Input, Label, Button } from "react-bootstrap";
   
 
-export default function HistoryBooks() {
+export default function HistoryBooks({userId}) {
   
   const [data, setData] = useState([]);
   const columns = 
@@ -38,7 +34,7 @@ export default function HistoryBooks() {
     async function fetchData() {
       try {
         
-        let res = await getAllBorrowedBooksByFilter({idUser: localStorage.getItem("userId"), status: "returned"})
+        let res = await getAllBorrowedBooksByFilter({idUser: userId, status: "returned"})
         
         setData(res);
       } catch (error) {

@@ -1,12 +1,8 @@
-
 import About from "./About";
 import Contact from "./Contact";
-//import "./styles.css"
-//import "./stylesHome.css"
-//import "./homeStyle.css"
-import CommonBooks from "./CommonBooks";
 import Footer from "../Footer";
 import React  from 'react';
+import NewBooks from "./NewBooks";
 
 function Home() {
     return (
@@ -22,7 +18,7 @@ function Home() {
                 </div>
             </header>
             <About></About>
-            <CommonBooks></CommonBooks>
+            <NewBooks></NewBooks>
             <Contact></Contact>
             <Footer></Footer>
             

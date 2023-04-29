@@ -1,7 +1,48 @@
-const Book = require("../models/Book");
 const BorrowBook = require("../models/BorrowBook");
 
 module.exports = class BorrowBooksService{
+
+    static async getTopBorrowedBooks() {
+        try{
+            const results = await BorrowBook.aggregate([
+            {
+                $group: {
+                _id: "$idBook",
+                count: { $sum: 1 }
+                }
+            },
+            {
+                $sort: { count: -1 }
+            },
+            {
+                $limit: 5
+            },
+            {
+                $lookup: {
+                from: "books",
+                localField: "_id",
+                foreignField: "idBook",
+                as: "book"
+                }
+            },
+            {
+                $unwind: "$book"
+            },
+            {
+                $project: {
+                _id: 0,
+                bookName: "$book.bookName",
+                count: 1
+                }
+            }
+            ]);
+        
+            return results;
+        } catch (error) {
+            console.log(`Could not fetch data ${error}`)
+        }
+    }
+      
    
     static async getBorrowUsersByFilter(filter){
         try {
@@ -100,6 +141,60 @@ module.exports = class BorrowBooksService{
         }
     }
 
+    static async getLateUsersBorrows(){
+        try {
+            const currentDate = new Date();
+            const currentMonth = currentDate.getMonth()-1;
+            const currentYear = currentDate.getFullYear();
+
+            const aggr = [   
+                {
+                    $lookup: {
+                        from: "users",
+                        localField: "idUser",
+                        foreignField: "idUser",
+                        as: "user"
+                    }
+                },
+                {
+                    $lookup: {
+                        from: "books",
+                        localField: "idBook",
+                        foreignField: "idBook",
+                        as: "book"
+                    }
+                },
+                {
+                    $match:{
+                        dateBorrow : {$lt: new Date(currentYear, currentMonth , 1)},
+                        status: "borrowed"
+                    }
+                },
+                {   
+                    $project:{
+                        _id : 0,
+                        idUser : 1,
+                        idBook : 1,
+                        status : 1,
+                        dateBorrow : 1,
+                        returnDate : 1,
+                        firstName : { $arrayElemAt: ["$user.firstName", 0] },
+                        lastName : { $arrayElemAt: ["$user.lastName", 0] },
+                        mail : { $arrayElemAt: ["$user.mail", 0] },
+                        bookName : { $arrayElemAt: ["$book.bookName", 0] }
+                        
+                    } 
+                }
+            ]
+           
+            const data = await BorrowBook.aggregate(aggr);        
+            
+            return data;
+        } catch (error) {
+            console.log(`Could not fetch data ${error}`)
+        }
+    }
+
     static async getAllBorrowBooks(){
         try {
             const data = await BorrowBook.find();
@@ -154,7 +249,7 @@ module.exports = class BorrowBooksService{
 
     static async deleteBorrowBook(bookId, userId){
         try {
-            const deletedResponse = await Book.findOneAndDelete({idBook: bookId, idUser: userId});
+            const deletedResponse = await BorrowBook.findOneAndDelete({idBook: bookId, idUser: userId});
             return deletedResponse;
         } catch (error) {
             console.log(`Could not delete book ${error}`);

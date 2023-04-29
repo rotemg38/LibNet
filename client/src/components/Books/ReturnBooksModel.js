@@ -7,6 +7,7 @@ import { GrCart } from 'react-icons/gr';
 import { ImCart } from 'react-icons/im';
 import { updateBooks } from '../../DBHandle/repoBooks';
 import { getAllBorrowedBooksByFilter, updateReturnBooks } from '../../DBHandle/repoBorrowBooks';
+import { updateArriveBook } from '../../DBHandle/repoOrderBooks';
 import TableSearchPagin from '../Utils/TableSearchPagin';
 import './StyleModals.css'
 
@@ -49,6 +50,7 @@ export default function ReturnBookModal({userId, show, setShow}) {
             
             await updateBooks(books)
             await updateReturnBooks(returnBooks)
+            
             alert("Books returned successfully!");
             handleClose();
         }catch (error) {
@@ -56,6 +58,14 @@ export default function ReturnBookModal({userId, show, setShow}) {
             alert("Failed to return the books");
         }
         
+        try{
+            for (let  index = 0;  index < returnBooks.length;  index++) {
+                const element = returnBooks[index];
+                await updateArriveBook(element.idBook)
+            }
+        }catch(error){
+            console.log("There were no invitations on that book")
+        }
        
     }
 
