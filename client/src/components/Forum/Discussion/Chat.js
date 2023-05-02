@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   MDBContainer,
   MDBRow,
@@ -20,13 +20,16 @@ import Message from "./Message";
 import { getDiscussionsByFilter } from "../../../DBHandle/repoDiscussions";
 import { getForumByFilter } from "../../../DBHandle/repoForums";
 import { addMessage, getMessagesByFilter } from "../../../DBHandle/repoMessages";
-import { connectedUserId } from "../../../DBHandle/repoUsers";
+import { connectedUserId } from "../../../DBHandle/repoUtils";
+import {io} from 'socket.io-client';
+import { ENDPOINT } from "../../../DBHandle/repoUtils";
 
 export default function Chat() {
   const [forum, setForum] = useState(null)
   const [discussion, setDiscussion] = useState(null)
   const [msg, setMsg] = useState("")
   const [msgs, setMsgs] = useState([])
+  const socket = useRef()
 
   const { idForum, idDisc } = useParams();
   const navigate = useNavigate()
@@ -49,11 +52,29 @@ export default function Chat() {
         return msg
       })
       setMsgs(msgsData)
-      console.log(msgsData)
+      
     }
 
     fetchData()
+   
 },[idForum, idDisc])
+
+useEffect(()=>{
+ 
+  socket.current = io(ENDPOINT,{ transports: ['websocket', 'polling', 'flashsocket'] });
+  
+  socket.current.on('message', (message) => {
+    //show only if this is message that i didnt send
+    if(message.idUser !== connectedUserId)
+      setMsgs((messages) => [...messages, message]);
+  });
+  
+    
+  return () => {
+    socket.current.disconnect();
+  };
+  
+},[])
 
 const handleChange = (event) => {
   const { name, value } = event.target; 
@@ -63,10 +84,12 @@ const handleChange = (event) => {
 const handleSend =()=>{
   async function addMsg(){
     try {
-        
+      let newMsg = {"idDisc":idDisc, "content": msg, "idUser": connectedUserId, "sender":true, "createdAt":new Date()}
       await addMessage({"idDisc":idDisc, "content": msg, "idUser": connectedUserId})
-    
-      setMsgs(oldArray => [...oldArray,{"idDisc":idDisc, "content": msg, "idUser": connectedUserId, "sender":true, "createdAt":new Date()}] );
+      
+      socket.current.emit('message', newMsg);
+      
+      setMsgs(oldArray => [...oldArray,newMsg] );
       setMsg("")
      
     } catch (error) {
@@ -100,11 +123,11 @@ return (
             let render = (msg["sender"])? 
               // means if i am the sender of this message
               <li key={index} className="d-flex mb-4" style={{justifyContent:"right"}}>
-                  <Message key={index} idUser={msg.idUser} sender={msg.sender} createdAt={msg.createdAt} content={msg.content}></Message>
+                  <Message msgIndex={index} idUser={msg.idUser} sender={msg.sender} createdAt={msg.createdAt} content={msg.content}></Message>
                 </li>
             :
               <li key={index} className="d-flex mb-4">
-                <Message key={index} idUser={msg.idUser} sender={msg.sender} createdAt={msg.createdAt} content={msg.content}></Message>
+                <Message msgIndex={index} idUser={msg.idUser} sender={msg.sender} createdAt={msg.createdAt} content={msg.content}></Message>
               </li>
             return render
           })}

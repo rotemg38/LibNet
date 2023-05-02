@@ -7,7 +7,7 @@ import { Rating } from '@mui/material';
 import { ImPlus, ImStarEmpty } from 'react-icons/im';
 import RateBookModal from './RateBookModal';
 import { getAvgRateByBook } from '../../DBHandle/repoRatings';
-import { connectedUserId } from '../../DBHandle/repoUsers';
+import { connectedUserId } from '../../DBHandle/repoUtils';
 
 
 function BookInfo() {

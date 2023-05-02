@@ -1,15 +1,13 @@
 import axios from 'axios'
+import { ENDPOINT } from './repoUtils';
 
 //axios.defaults.withCredentials = true;
 const server = axios.create({
     withCredentials: false,
-    baseURL: "http://localhost:3000/api/users" 
+    baseURL: ENDPOINT+ "/api/users" 
   });
 
 /* HELPFUL FUNCTION TO USE THE DB REGARDING USERS TABLE: */
-export var connectedUserId = sessionStorage.getItem("userId")
-export var connectedUserName = sessionStorage.getItem("userName")
-export var connectedIsAdmin = sessionStorage.getItem("isAdmin")
 
 export async function signIn(data){
     try{

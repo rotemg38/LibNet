@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { addRating, getRatingByFilter, updateRating } from '../../DBHandle/repoRatings';
 import { Rating } from '@mui/material';
-import { connectedUserId } from '../../DBHandle/repoUsers';
+import { connectedUserId } from '../../DBHandle/repoUtils';
 
 export default function RateBookModal({bookId,show, setShow}) {
     const [rate, setRate] = useState(0)

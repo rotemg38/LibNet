@@ -1,9 +1,10 @@
 import axios from 'axios'
+import { ENDPOINT } from './repoUtils';
 
 //axios.defaults.withCredentials = true;
 const server = axios.create({
     withCredentials: false,
-    baseURL: "http://localhost:3000/api/ratings" 
+    baseURL: ENDPOINT+"/api/ratings" 
   });
 
 /* HELPFUL FUNCTION TO USE THE DB REGARDING RATING TABLE: */

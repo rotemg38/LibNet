@@ -4,7 +4,7 @@ import MsgCard from "./MsgCard";
 import { getUser } from "../../../DBHandle/repoUsers";
 
 
-export default function Message({key, idUser, sender, createdAt, content}){
+export default function Message({msgIndex, idUser, sender, createdAt, content}){
     const [user, setUser] = useState({})
     const [time, setTime] = useState("")
     useEffect(()=>{
@@ -32,7 +32,7 @@ export default function Message({key, idUser, sender, createdAt, content}){
 
         fetchData()
 
-    },[key])
+    },[msgIndex])
 
     return(
         <>

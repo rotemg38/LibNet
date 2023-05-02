@@ -1,11 +1,9 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { MDBInput, MDBTextArea, MDBValidation, MDBValidationItem } from 'mdb-react-ui-kit';
-import { addDiscussion, pushMessage } from '../../DBHandle/repoDiscussions';
-import { addMessage } from '../../DBHandle/repoMessages';
-import { pushDiscussion } from '../../DBHandle/repoForums';
-import { connectedUserId } from '../../DBHandle/repoUsers';
+import { MDBInput, MDBValidation, MDBValidationItem } from 'mdb-react-ui-kit';
+import { addDiscussion } from '../../DBHandle/repoDiscussions';
+import { connectedUserId } from '../../DBHandle/repoUtils';
 
 export default function AddDiscussionModal({forumId,show, setShow}) {
   const [discName, setDiscName] = useState("")

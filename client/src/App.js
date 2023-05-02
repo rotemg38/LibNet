@@ -16,7 +16,7 @@ import Inbox from './components/Inbox/Inbox';
 import Forums from './components/Forum/Forums';
 import Discussions from './components/Forum/Discussions';
 import Chat from './components/Forum/Discussion/Chat';
-import { connectedIsAdmin, connectedUserId } from './DBHandle/repoUsers';
+import { connectedIsAdmin, connectedUserId } from './DBHandle/repoUtils';
 
 function App() {
   const [connected, setConnected] = useState(false)

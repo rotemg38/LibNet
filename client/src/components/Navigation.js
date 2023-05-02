@@ -5,7 +5,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import {CgChart, CgLogOut, CgMail, CgProfile} from 'react-icons/cg'
 import {ImBooks} from 'react-icons/im'
-import { connectedIsAdmin, connectedUserName } from '../DBHandle/repoUsers';
+import { connectedIsAdmin, connectedUserName } from '../DBHandle/repoUtils';
 
 function Navb({connected}) {
     
