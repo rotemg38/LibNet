@@ -1,12 +1,19 @@
-import React, { useState }  from 'react';
+import React, { useEffect, useState }  from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
-import BookCard from '../Catalogue/BookCard';
+import { getAllForums } from '../../DBHandle/repoForums';
 import ForumCard from './ForumCard';
 
 export default function Forums() {
-    const [key, setKey] = useState("")
+    const [forums, setForums] = useState([])
    
-    const forums = [{copyAvailable:-1,idForum:1, bookName:"hello", author:"hii", srcImg:"default_book.png"},{copyAvailable:-1,idForum:1, bookName:"hello", author:"hii", srcImg:"default_book.png"},{copyAvailable:-1,idForum:1, bookName:"hello", author:"hii", srcImg:"default_book.png"},{copyAvailable:-1,idForum:1, bookName:"hello", author:"hii", srcImg:"default_book.png"},{copyAvailable:-1,idForum:1, bookName:"hello", author:"hii", srcImg:"default_book.png"},{copyAvailable:-1,idForum:1, bookName:"hello", author:"hii", srcImg:"default_book.png"},{copyAvailable:-1,idForum:1, bookName:"hello", author:"hii", srcImg:"default_book.png"},{copyAvailable:-1,idForum:1, bookName:"hello", author:"hii", srcImg:"default_book.png"},{copyAvailable:-1,idForum:1, bookName:"hello", author:"hii", srcImg:"default_book.png"},{copyAvailable:-1,idForum:1, bookName:"hello", author:"hii", srcImg:"default_book.png"}]
+    useEffect(()=>{
+        async function fetchData() {
+            let res = await getAllForums()
+            setForums(res)
+        }
+        fetchData()
+    },[])
+    
     return (
     <>
         <div className='justify-center'>
@@ -14,7 +21,7 @@ export default function Forums() {
         </div>
         <Container>
             <div className='justify-center'>
-            <Row sm={2} md={4} className="g-4">
+            <Row md={8} className="g-4">
                 {forums.map((element, index)=> 
                     <Col key={index}>
                         <ForumCard idForum={element.idForum}/>

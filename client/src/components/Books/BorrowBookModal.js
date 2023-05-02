@@ -85,7 +85,7 @@ export default function BorrowBookModal({userId,show, setShow}) {
             accessor: "location"
         },
         {
-            Header: "Action",
+            Header: "Add/Remove",
             accessor: "action"
         }
     ]

@@ -19,7 +19,7 @@ function Navb({connected}) {
             <Nav className="me-auto">
                 <Nav.Link href="/catalogue">Catalogue</Nav.Link>
                 <Nav.Link href="/#contact">Contact</Nav.Link>
-                {connected?<Nav.Link href="/forum">Forum</Nav.Link>:<></>}
+                {connected?<Nav.Link href="/forum">Forums</Nav.Link>:<></>}
             </Nav>
             <Nav>
             {connected? 

@@ -67,7 +67,7 @@ export default function InviteBookModal({userId,show, setShow}) {
             accessor: "location"
         },
         {
-            Header: "Action",
+            Header: "Add/Remove",
             accessor: "action"
         }
     ]

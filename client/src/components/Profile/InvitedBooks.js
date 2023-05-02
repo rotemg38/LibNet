@@ -47,7 +47,7 @@ const InvitedBooks = ({userId}) => {
         }else{
           book["status"] = <MDBBadge color='warning' pill>{book["status"]}</MDBBadge>
         }
-        
+        book["dateInv"] = new Date(book.dateInv).toLocaleDateString()
         let strId = "btnCancle"+book.idBook
         book["action"] = <MDBBtn 
                             id={strId}

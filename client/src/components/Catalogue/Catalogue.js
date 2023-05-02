@@ -26,7 +26,7 @@ function Catalogue() {
    <div className='justify-center'>
       
       
-   <Row sm={2} md={4} className="g-4">
+   <Row md={8} className="g-4">
       {searchResults.map((result, index)=> 
         <Col key={index}>
           {(result.picBook === "default_book.png")? 

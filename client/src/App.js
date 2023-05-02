@@ -14,6 +14,8 @@ import Profile from './components/Profile/Profile';
 import DashboardManager from './components/DashboardManager/Dashboard';
 import Inbox from './components/Inbox/Inbox';
 import Forums from './components/Forum/Forums';
+import Discussions from './components/Forum/Discussions';
+import Chat from './components/Forum/Discussion/Chat';
 
 function App() {
   const [connected, setConnected] = useState(false)
@@ -40,6 +42,8 @@ function App() {
           <>
             <Route path='/profile' element={<Profile setKey={undefined} userId={localStorage.getItem("userId")}/>}></Route>
             <Route path='/forum' element={<Forums />}></Route>
+            <Route path='/forum/:idForum' element={<Discussions />}></Route>
+            <Route path='/forum/:idForum/:idDisc' element={<Chat />}></Route>
           </>
           :<></>}
           <Route path='/catalogue' element={<Catalogue />}></Route>

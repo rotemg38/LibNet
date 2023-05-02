@@ -29,7 +29,7 @@ function AddUser({setKey}) {
     } else {
         try {
             await addUser(user);
-            // reset the form after adding the book
+            // reset the form after adding the user
             setUser({
                 firstName: "",
                 lastName: "",

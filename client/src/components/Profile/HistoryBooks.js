@@ -35,8 +35,12 @@ export default function HistoryBooks({userId}) {
       try {
         
         let res = await getAllBorrowedBooksByFilter({idUser: userId, status: "returned"})
-        
-        setData(res);
+        let books = res.map((book)=>{
+          book["dateBorrow"] = new Date(book.dateBorrow).toLocaleDateString()
+          book["returnDate"] = new Date(book.returnDate).toLocaleDateString()
+          return book
+        })
+        setData(books);
       } catch (error) {
         console.log(error);
       }

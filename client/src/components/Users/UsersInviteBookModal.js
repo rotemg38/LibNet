@@ -41,7 +41,13 @@ export default function UsersOrder({bookId, show, setShow}) {
         async function fetchData() {
         try {
             let res = await getAllOrderUsersByFilter({idBook: bookId, status: "waiting"})
-            setData(res);
+            let data = res.map((user)=>{
+                user["dateInv"] = new Date(user.dateInv).toLocaleDateString()
+                if(user.dateArrive !== null)
+                    user["dateArrive"] = new Date(user.dateArrive).toLocaleDateString()
+                return user
+            })
+            setData(data);
         } catch (error) {
             console.log(error);
         }

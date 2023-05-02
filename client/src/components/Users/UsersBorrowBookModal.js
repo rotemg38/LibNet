@@ -36,8 +36,11 @@ export default function UsersBorrow({bookId, show, setShow}) {
         try {
             
             let res = await getAllBorrowUsersByFilter({idBook: bookId, status: "borrowed"})
-            
-            setData(res);
+            let data = res.map((user)=>{
+                user["dateBorrow"] = new Date(user.dateBorrow).toLocaleDateString()
+                return user
+            })
+            setData(data);
         } catch (error) {
             console.log(error);
         }

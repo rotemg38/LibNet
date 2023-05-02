@@ -6,6 +6,9 @@ const borrowBook = require("./routes/borrowBookRouter");
 const orderBook = require("./routes/orderBookRouter");
 const ratings = require("./routes/ratingRoutes");
 const requests = require("./routes/requestRoutes");
+const forums = require("./routes/forumRoutes");
+const discussions = require("./routes/discussionRoutes");
+const messages = require("./routes/messageRoutes");
 
 const app = express()
 var cors = require('cors')
@@ -35,3 +38,6 @@ app.use("/api/borrowBooks", borrowBook);
 app.use("/api/orderBooks", orderBook);
 app.use("/api/ratings", ratings);
 app.use("/api/requests", requests);
+app.use("/api/forums", forums);
+app.use("/api/discussions", discussions);
+app.use("/api/messages", messages);

@@ -37,7 +37,7 @@ export default function ReturnBookModal({userId, show, setShow}) {
         return -1;
     }
     
-    const handleBorrow = async ()=>{
+    const handleReturn = async ()=>{
         
         let returnBooks = []
         let books = []
@@ -89,7 +89,7 @@ export default function ReturnBookModal({userId, show, setShow}) {
             accessor: "dateBorrow"
         },
         {
-            Header: "Action",
+            Header: "Add/Remove",
             accessor: "action"
         }
     ]
@@ -171,12 +171,15 @@ export default function ReturnBookModal({userId, show, setShow}) {
                 </Row>
             </Modal.Body>
             <Modal.Footer>
+            {data.length === 0?<></>:
+            <>
             <Button variant="secondary" style={{border:"1px solid"}} onClick={handleClose}>
                 Cancle
             </Button>
-            <Button variant="primary" onClick={handleBorrow}>
+            <Button variant="primary" onClick={handleReturn}>
                 Return
             </Button>
+            </>}
             </Modal.Footer>
             
         </Modal>

@@ -1,13 +1,11 @@
 import { MDBBtn, MDBCard } from "mdb-react-ui-kit";
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { Button } from "react-bootstrap";
+import { Alert, Button } from "react-bootstrap";
 import { getAllUsers } from "../../DBHandle/repoUsers";
 import TableSearchPagin from "../Utils/TableSearchPagin";
 
 const UsersTable = ({setKey, setUserId}) => {
     const [data, setData] = useState([]);
-    const navigate = useNavigate()
 
     const columns = 
     [
@@ -52,7 +50,7 @@ const UsersTable = ({setKey, setUserId}) => {
                 u["firstName"] = user.firstName
                 u["lastName"] = user.lastName
                 u["mail"] = user.mail
-                u["createdAt"] = user.createdAt
+                u["createdAt"] = new Date(user.createdAt).toLocaleDateString()
                 u["limitBooks"] = user.limitBooks
 
                 return u
@@ -73,11 +71,13 @@ const UsersTable = ({setKey, setUserId}) => {
     <div className="justify-center">
         <h1>Users</h1>
     </div>
-   
+    {data.length === 0?
+        <Alert variant="warning" className='text-center'><p>Found No Users</p> <p>{renderBtn()}</p></Alert>
+    :
     <MDBCard className="mb-3" style={{ borderRadius: '.5rem' , padding: '2rem'}}>
         <TableSearchPagin dataTable={data} columns={columns} sizePage={10} infoMsg={"Loading Users..."} renderBtn={renderBtn}></TableSearchPagin>
     </MDBCard>
-    
+    }
     </>
   );
 } 

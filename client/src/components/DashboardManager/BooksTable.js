@@ -1,12 +1,11 @@
 import { MDBBadge, MDBBtn, MDBCard } from "mdb-react-ui-kit";
 import React, { useMemo, useEffect, useState, useRef } from "react";
-import { Button } from "react-bootstrap";
+import { Alert, Button } from "react-bootstrap";
 import TableSearchPagin from "../Utils/TableSearchPagin";
 import { getAllBooks } from "../../DBHandle/repoBooks";
 
 const BooksTable = ({setKey, setBookId}) => {
     const [data, setData] = useState([]);
-
 
     const columns = 
     [
@@ -39,6 +38,10 @@ const BooksTable = ({setKey, setBookId}) => {
             accessor: "location"
         },
         {
+            Header: "Added At",
+            accessor: "createdAt"
+        },
+        {
             Header: "Action",
             accessor: "action"
         }
@@ -57,6 +60,7 @@ const BooksTable = ({setKey, setBookId}) => {
                 b["copies"] = book.copies
                 b["copyAvailable"] = book.copyAvailable
                 b["location"] = book.location
+                b["createdAt"] = new Date(book.createdAt).toLocaleDateString()
 
                 return b
             })
@@ -76,10 +80,13 @@ const BooksTable = ({setKey, setBookId}) => {
     <div className="justify-center">
         <h1>Books</h1>
     </div>
-    
-    <MDBCard className="mb-3" style={{ borderRadius: '.5rem' , padding: '2rem'}}>
-        <TableSearchPagin dataTable={data} columns={columns} sizePage={10} infoMsg={"Loading Books..."} renderBtn={renderBtn}></TableSearchPagin>
-    </MDBCard>
+    {data.length === 0?
+        <Alert variant="warning" className='text-center'><p>Found No Books</p> <p>{renderBtn()}</p></Alert>
+    :
+        <MDBCard className="mb-3" style={{ borderRadius: '.5rem' , padding: '2rem'}}>
+            <TableSearchPagin dataTable={data} columns={columns} sizePage={10} infoMsg={"Loading Books..."} renderBtn={renderBtn}></TableSearchPagin>
+        </MDBCard>
+    }
     </>
   );
 } 

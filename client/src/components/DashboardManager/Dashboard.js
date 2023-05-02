@@ -1,5 +1,5 @@
 import React, { useState }  from 'react';
-import { Col, Row } from 'react-bootstrap';
+import { Col, Container, Row } from 'react-bootstrap';
 import AddUser from '../Users/AddUser';
 import AddBook from '../Books/AddBook';
 import BoardManager from './Board/BoardManager';
@@ -9,6 +9,8 @@ import UsersActions from './UsersActions';
 import UsersTable from './UsersTable';
 import BooksActions from './BooksActions';
 import Profile from '../Profile/Profile';
+import ForumsTable from './ForumsTable';
+import AddForum from '../Forum/AddForum';
 
 export default function DashboardManager() {
   const [key, setKey] = useState("board")
@@ -34,6 +36,10 @@ export default function DashboardManager() {
         return <AddBook setKey={setKey}/>
       case 'books':
         return <BooksTable setKey={setKey} setBookId={setBookId}/>;
+      case 'forums':
+        return <ForumsTable setKey={setKey}/>
+      case 'addForum':
+        return <AddForum setKey={setKey}/>
       default:
         return null;
     }
@@ -49,7 +55,7 @@ export default function DashboardManager() {
           {renderComponent()}
         </Col>
       </Row>
-      
+
     
     </>
 
