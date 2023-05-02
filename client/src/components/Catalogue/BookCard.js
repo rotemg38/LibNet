@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { ImPlus } from 'react-icons/im';
 import { Badge, Col, Row } from 'react-bootstrap';
 import { addOrderBook, getAllOrderBooksByFilter } from '../../DBHandle/repoOrderBooks';
+import { connectedUserId } from '../../DBHandle/repoUsers';
 
 function BookCard({copyAvailable, idBook,bookName, author, srcImg, showInvite,numInvite, setNumInvite}) {
   const [invite, setInvite] = useState(true)
@@ -12,7 +13,7 @@ function BookCard({copyAvailable, idBook,bookName, author, srcImg, showInvite,nu
   useEffect(()=>{
     async function fetchData(){
       
-      let res = await getAllOrderBooksByFilter({idUser: localStorage.getItem("userId"), status: "waiting"})
+      let res = await getAllOrderBooksByFilter({idUser: connectedUserId, status: "waiting"})
       
       setNumInvite(res.length)
       
@@ -24,7 +25,7 @@ function BookCard({copyAvailable, idBook,bookName, author, srcImg, showInvite,nu
         }
       }
     }
-    if(showInvite && localStorage.getItem("userId") !== null)
+    if(showInvite && connectedUserId !== null)
       fetchData()
     
   },[])
@@ -54,12 +55,12 @@ function BookCard({copyAvailable, idBook,bookName, author, srcImg, showInvite,nu
           </Link>
         </Col>
         <Col md="2">
-          {(invite && showInvite && localStorage.getItem("userId") !== null)?  
+          {(invite && showInvite && connectedUserId !== null)?  
           <a href='#' title='invite book' onClick={async ()=>{            
             try{
                 
               if(numInvite < 2){
-                await addOrderBook([{"idUser": localStorage.getItem("userId"), "idBook": idBook}])
+                await addOrderBook([{"idUser": connectedUserId, "idBook": idBook}])
                 setInvite(false)
                 let updatedNum = numInvite+1
                 setNumInvite(updatedNum)

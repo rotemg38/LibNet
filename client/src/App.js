@@ -16,11 +16,13 @@ import Inbox from './components/Inbox/Inbox';
 import Forums from './components/Forum/Forums';
 import Discussions from './components/Forum/Discussions';
 import Chat from './components/Forum/Discussion/Chat';
+import { connectedIsAdmin, connectedUserId } from './DBHandle/repoUsers';
 
 function App() {
   const [connected, setConnected] = useState(false)
   useEffect(()=>{
-      if(localStorage.getItem("userId")!==null){
+    
+      if(connectedUserId!==null){
           setConnected(true)
       }else{
           setConnected(false)
@@ -40,7 +42,7 @@ function App() {
           :<></>}
           {connected?
           <>
-            <Route path='/profile' element={<Profile setKey={undefined} userId={localStorage.getItem("userId")}/>}></Route>
+            <Route path='/profile' element={<Profile setKey={undefined} userId={connectedUserId}/>}></Route>
             <Route path='/forum' element={<Forums />}></Route>
             <Route path='/forum/:idForum' element={<Discussions />}></Route>
             <Route path='/forum/:idForum/:idDisc' element={<Chat />}></Route>
@@ -48,7 +50,7 @@ function App() {
           :<></>}
           <Route path='/catalogue' element={<Catalogue />}></Route>
           <Route path='/book/:id' element={<BookInfo />}></Route> 
-          {connected && localStorage.getItem("isAdmin") === 'true'?
+          {connected && connectedIsAdmin === 'true'?
           <>
           <Route path='/dashboardManager' element={<DashboardManager/>}></Route>
           <Route path='/inbox' element={<Inbox/>}></Route>

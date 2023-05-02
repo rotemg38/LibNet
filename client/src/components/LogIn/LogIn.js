@@ -37,10 +37,11 @@ function LogIn({setConnected}) {
                    
                    setError("true")
                 }else{
-                    localStorage.setItem("jwt", res["token"]);
-                    localStorage.setItem("userId", res["userId"]);
-                    localStorage.setItem("userName", res["firstName"]);
-                    localStorage.setItem("isAdmin", res["admin"]);
+                    
+                    sessionStorage.setItem("jwt", res["token"]);
+                    sessionStorage.setItem("userId", res["userId"]);
+                    sessionStorage.setItem("userName", res["firstName"]);
+                    sessionStorage.setItem("isAdmin", res["admin"]);
                     setConnected(true)
                     //Redirect to home page
                     navigate("/")

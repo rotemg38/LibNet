@@ -5,6 +5,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import {CgChart, CgLogOut, CgMail, CgProfile} from 'react-icons/cg'
 import {ImBooks} from 'react-icons/im'
+import { connectedIsAdmin, connectedUserName } from '../DBHandle/repoUsers';
 
 function Navb({connected}) {
     
@@ -25,12 +26,12 @@ function Navb({connected}) {
             {connected? 
                 <>
                 
-                <NavDropdown title={'Hello, '+ localStorage.getItem("userName")} >
+                <NavDropdown title={'Hello, '+ connectedUserName} >
                     <NavDropdown.Item href="/profile">
                         <CgProfile size={20}/>&nbsp;
                         Profile
                     </NavDropdown.Item>
-                    {localStorage.getItem("isAdmin") === 'true'?
+                    {connectedIsAdmin === 'true'?
                     <>
                         <NavDropdown.Item href="/dashboardManager">
                             <CgChart size={20}/>&nbsp;
@@ -44,7 +45,7 @@ function Navb({connected}) {
                     :<></>}
                     <NavDropdown.Divider />
                     <NavDropdown.Item href="/" onClick={()=>{
-                        localStorage.clear()
+                        sessionStorage.clear()
                     }}>
                         <CgLogOut size={20}/>&nbsp;
                         LogOut
@@ -62,19 +63,6 @@ function Navb({connected}) {
             </Navbar.Collapse>
         </Container>
         </Navbar>
-        {/*
-        <nav className="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
-            <div className="container px-5">
-                <a className="navbar-brand" href="#page-top">LibNet</a>
-                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span className="navbar-toggler-icon"></span></button>
-                <div className="collapse navbar-collapse" id="navbarResponsive">
-                    <ul className="navbar-nav ms-auto">
-                        <li className="nav-item"><a className="nav-link" href="#!">Sign Up</a></li>
-                        <li className="nav-item"><a className="nav-link" href="#!">Log In</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav> */}
         </>
     );
   }

@@ -20,6 +20,7 @@ import Message from "./Message";
 import { getDiscussionsByFilter } from "../../../DBHandle/repoDiscussions";
 import { getForumByFilter } from "../../../DBHandle/repoForums";
 import { addMessage, getMessagesByFilter } from "../../../DBHandle/repoMessages";
+import { connectedUserId } from "../../../DBHandle/repoUsers";
 
 export default function Chat() {
   const [forum, setForum] = useState(null)
@@ -40,7 +41,7 @@ export default function Chat() {
 
       let data = await getMessagesByFilter({idDisc:idDisc})
       let msgsData = data.map((msg)=>{
-        if(String(msg.idUser) === localStorage.getItem("userId")){
+        if(String(msg.idUser) === connectedUserId){
           msg["sender"] = true
         }else{
           msg["sender"] = false
@@ -63,9 +64,9 @@ const handleSend =()=>{
   async function addMsg(){
     try {
         
-      await addMessage({"idDisc":idDisc, "content": msg, "idUser": localStorage.getItem("userId")})
+      await addMessage({"idDisc":idDisc, "content": msg, "idUser": connectedUserId})
     
-      setMsgs(oldArray => [...oldArray,{"idDisc":idDisc, "content": msg, "idUser": localStorage.getItem("userId"), "sender":true, "createdAt":new Date()}] );
+      setMsgs(oldArray => [...oldArray,{"idDisc":idDisc, "content": msg, "idUser": connectedUserId, "sender":true, "createdAt":new Date()}] );
       setMsg("")
      
     } catch (error) {

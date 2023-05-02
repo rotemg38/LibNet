@@ -7,6 +7,7 @@ import { Rating } from '@mui/material';
 import { ImPlus, ImStarEmpty } from 'react-icons/im';
 import RateBookModal from './RateBookModal';
 import { getAvgRateByBook } from '../../DBHandle/repoRatings';
+import { connectedUserId } from '../../DBHandle/repoUsers';
 
 
 function BookInfo() {
@@ -60,7 +61,7 @@ function BookInfo() {
                 <Rating name="read-only" value={avgRate} precision={0.5} size="large" readOnly />
               </Col>
               <Col md="2">
-                {localStorage.getItem("userId")!=null?
+                {connectedUserId!=null?
                 <a href='#' onClick={()=>{setShowAddRate(true)}}>
                 <ImStarEmpty color='gray' size={23}/>
                 <ImPlus

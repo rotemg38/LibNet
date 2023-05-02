@@ -7,6 +7,9 @@ const server = axios.create({
   });
 
 /* HELPFUL FUNCTION TO USE THE DB REGARDING USERS TABLE: */
+export var connectedUserId = sessionStorage.getItem("userId")
+export var connectedUserName = sessionStorage.getItem("userName")
+export var connectedIsAdmin = sessionStorage.getItem("isAdmin")
 
 export async function signIn(data){
     try{

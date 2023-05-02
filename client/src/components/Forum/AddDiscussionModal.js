@@ -5,6 +5,7 @@ import { MDBInput, MDBTextArea, MDBValidation, MDBValidationItem } from 'mdb-rea
 import { addDiscussion, pushMessage } from '../../DBHandle/repoDiscussions';
 import { addMessage } from '../../DBHandle/repoMessages';
 import { pushDiscussion } from '../../DBHandle/repoForums';
+import { connectedUserId } from '../../DBHandle/repoUsers';
 
 export default function AddDiscussionModal({forumId,show, setShow}) {
   const [discName, setDiscName] = useState("")
@@ -18,11 +19,8 @@ export default function AddDiscussionModal({forumId,show, setShow}) {
     } else {
       try {
         
-        await addDiscussion({"idForum":forumId, "discName": discName, "idUserOwner": localStorage.getItem("userId")})
-        //let msgId = await addMessage({"idDisc":discId, "content": discussion.content, "idUser": localStorage.getItem("userId")})
-        //await pushDiscussion(forumId, discId)
-        //await pushMessage(discId, msgId)
-
+        await addDiscussion({"idForum":forumId, "discName": discName, "idUserOwner": connectedUserId})
+       
         alert("Discussion added successfully!");
         handleClose()
       } catch (error) {

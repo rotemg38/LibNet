@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { addRating, getRatingByFilter, updateRating } from '../../DBHandle/repoRatings';
 import { Rating } from '@mui/material';
+import { connectedUserId } from '../../DBHandle/repoUsers';
 
 export default function RateBookModal({bookId,show, setShow}) {
     const [rate, setRate] = useState(0)
@@ -17,7 +18,7 @@ export default function RateBookModal({bookId,show, setShow}) {
           event.stopPropagation();
         } else {
             try {
-                let userId = localStorage.getItem("userId")
+                let userId = connectedUserId
                 if(action === "Add"){
                     await addRating({idBook:bookId, idUser: userId, rateNum: rate})
                     alert("Rate added successfully!");
@@ -43,7 +44,7 @@ export default function RateBookModal({bookId,show, setShow}) {
    
     useEffect(()=>{
         const fetchData = async ()=>{
-            const userRate = await getRatingByFilter({idBook:bookId, idUser: localStorage.getItem("userId")})
+            const userRate = await getRatingByFilter({idBook:bookId, idUser: connectedUserId})
             
             if(userRate !== null){
                 setRate(userRate["rateNum"])
