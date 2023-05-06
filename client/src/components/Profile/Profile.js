@@ -62,7 +62,7 @@ export default function Profile({setKey, userId}) {
                   <MDBCol md="4" className="gradient-custom text-center text-white"
                     style={{ borderTopLeftRadius: '.5rem', borderBottomLeftRadius: '.5rem' }}>
                     <MDBCardImage src={user.picUser}
-                      alt="Avatar" className="my-5" style={{ width: '80px' }} fluid />
+                      alt="Avatar" className="my-5" style={{ width: '80px',borderRadius: "50%" }} fluid />
                     <MDBTypography tag="h5"><b>{user.firstName + " " + user.lastName}</b></MDBTypography>
                     <MDBCardText>{user.mail}</MDBCardText>
                     {setKey === undefined?

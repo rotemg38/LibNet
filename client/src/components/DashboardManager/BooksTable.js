@@ -22,6 +22,10 @@ const BooksTable = ({setKey, setBookId}) => {
             accessor: "category",
         },
         {
+            Header: "Series Name",
+            accessor: "seriesName",
+        },
+        {
             Header: "Author",
             accessor: "author",
         },
@@ -60,8 +64,9 @@ const BooksTable = ({setKey, setBookId}) => {
                 b["copies"] = book.copies
                 b["copyAvailable"] = book.copyAvailable
                 b["location"] = book.location
+                b["seriesName"] = book.seriesName
                 b["createdAt"] = new Date(book.createdAt).toLocaleDateString()
-
+                
                 return b
             })
             setData(filteredUsers);

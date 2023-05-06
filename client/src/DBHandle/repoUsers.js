@@ -80,6 +80,7 @@ export async function getAllUsers() {
     {
         var response = await server.get(`/`);
         var data = await response.data;
+        console.log(data[1])
         return data;
     } catch(e){
         //users not found- thus return null

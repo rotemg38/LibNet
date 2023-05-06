@@ -68,6 +68,10 @@ function Search({updateResults}) {
     {
       value: 'idBook',
       text: 'Book Id'
+    },
+    {
+      value: 'seriesName',
+      text: 'Series Name'
     }
   ];
 

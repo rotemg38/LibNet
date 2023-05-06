@@ -6,6 +6,7 @@ const Schema = mongoose.Schema;
 const ForumSchema = Schema({
     idForum:{
         type: Number,
+        unique: true,
         required: true
     },
 

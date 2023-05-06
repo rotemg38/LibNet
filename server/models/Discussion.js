@@ -5,6 +5,7 @@ const Schema = mongoose.Schema;
 const DiscussionSchema = Schema({
     idDisc:{
         type: Number,
+        unique: true,
         required: true
     },
 

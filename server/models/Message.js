@@ -10,6 +10,7 @@ const MessageSchema = Schema({
     
     idMsg:{
         type: Number,
+        unique: true,
         required: true
     },
 

@@ -21,8 +21,8 @@ app.use(cors({ origin: 'http://localhost:3001' }));
 
 
 const pass = "LGTWKvafiyatoX3N"
-const uri = "mongodb+srv://rotemg:"+pass+"@clusterlibnet.6wi0mvp.mongodb.net/?retryWrites=true&w=majority";
-
+const db_name = "libNet"
+const uri = "mongodb+srv://rotemg:"+pass+"@clusterlibnet.6wi0mvp.mongodb.net/"+db_name+"?retryWrites=true&w=majority";
 
 mongoose.connect(uri)
 .then(res => console.log(`Connection Succesful ${res}`))

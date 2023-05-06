@@ -5,6 +5,7 @@ const Schema = mongoose.Schema;
 const RequestSchema = Schema({
     idReq:{
         type: Number,
+        unique: true,
         required: true
     },
 

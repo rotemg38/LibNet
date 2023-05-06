@@ -53,8 +53,8 @@ function BookInfo() {
         <Container className="my-5">
         <Row>
           <Col md={4}>
-            <Row>
-              <Image src={book.picBook} alt={`${book.bookName} cover`} fluid />
+            <Row className='justify-center'>
+              <Image src={book.picBook} alt={`${book.bookName} cover`} fluid  style={{height: "25rem",width: "20rem"}}/>
             </Row>
             <Row style={{margin: "auto 100px", padding:"10px"}}>
               <Col md="10">
