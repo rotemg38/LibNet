@@ -16,30 +16,45 @@ import Inbox from './components/Inbox/Inbox';
 import Forums from './components/Forum/Forums';
 import Discussions from './components/Forum/Discussions';
 import Chat from './components/Forum/Discussion/Chat';
-import { connectedIsAdmin, connectedUserId } from './DBHandle/repoUtils';
+import { connectedIsAdmin, connectedUserId, connectedUserName } from './DBHandle/repoUtils';
 import Recommended from './components/Recommended/Recommended';
 
 function App() {
   const [connected, setConnected] = useState(false)
+  const [adminConnected, setAdminConnected] = useState(false)
+  const [username, setUsername] = useState(null)
   useEffect(()=>{
-    
-      if(connectedUserId!==null){
-          setConnected(true)
-      }else{
-          setConnected(false)
-      }
+  
+    if(connectedUserId!==null){
+      setConnected(true)
+    }else{
+      setConnected(false)
+    }
+
+    if(connectedIsAdmin !== null){
+      setAdminConnected(true)
+    }else{
+      setAdminConnected(false)
+    }
+
+    if(connectedUserName!== null){
+      setUsername(connectedUserName)
+    }else{
+      setUsername(null)
+    }
+
       
   },[])
 
   return (
    
     <>
-      <Navb connected={connected}></Navb>
+      <Navb connected={connected} adminConnected={adminConnected} username={username}></Navb>
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Home/>}></Route>
           {!connected?
-          <Route path='/login' element={<LogIn setConnected={setConnected}/>}></Route>
+          <Route path='/login' element={<LogIn setConnected={setConnected} setAdminConnected={setAdminConnected} setUsername={setUsername}/>}></Route>
           :<></>}
           {connected?
           <>

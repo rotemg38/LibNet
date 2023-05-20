@@ -1,35 +1,18 @@
 const Recommendation = require("../models/Recommendations");
+const Book = require("../models/Book");
 
 module.exports = class RecommendationService{
    
     static async getRecommendationsByUserId(userId){
         try {
-            const recommendations = await Recommendation.aggregate([
+            const recommendations = await Recommendation.findOne({"idUser": userId})
+            let data = []
+            if(recommendations){
+                let ids = recommendations.books
                 
-                { $unwind: {path: "$books" } },
-                {
-                    $lookup: {
-                        from: "books",
-                        localField: "books",
-                        foreignField: "idBook",
-                        as: "bookDetails"
-                    }
-                },
-                { $unwind: {path: "$bookDetails" } },
-                {
-                    $project: {
-                        _id: 0,
-                        idUser: "$idUser",
-                        idBook: "$bookDetails.idBook",
-                        bookName: "$bookDetails.bookName",
-                        author: "$bookDetails.author",
-                        picBook: "$bookDetails.picBook"
-                    }
-                }
-            ]);
-            
-            let data = recommendations.filter((elm) => String(elm["idUser"]) === userId);
-            
+                data = await Book.find({ idBook: { $in: ids } })
+            }
+           
             return data;
         } catch (error) {
             console.error("Error while getting recommendations:", error);

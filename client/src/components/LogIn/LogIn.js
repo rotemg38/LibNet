@@ -14,7 +14,7 @@ import { useNavigate } from 'react-router-dom';
 import { signIn } from '../../DBHandle/repoUsers';
 import React  from 'react';
 
-function LogIn({setConnected}) {
+function LogIn({setConnected, setAdminConnected, setUsername}) {
     const navigate = useNavigate()
     const [error, setError] = useState("false")
     const [mail, setMail] = useState("")
@@ -43,6 +43,8 @@ function LogIn({setConnected}) {
                     sessionStorage.setItem("userName", res["firstName"]);
                     sessionStorage.setItem("isAdmin", res["admin"]);
                     setConnected(true)
+                    setAdminConnected(Boolean(res["admin"]))
+                    setUsername(res["firstName"])
                     //Redirect to home page
                     navigate("/")
                     
