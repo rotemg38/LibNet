@@ -1,18 +1,19 @@
 import React, { useEffect, useState }  from 'react';
 import { Row, Col, Alert } from 'react-bootstrap';
-import { getTop4NewBooks } from '../../DBHandle/repoBooks';
+import { getRecommendationsByUser } from '../../DBHandle/repoRecommendations';
 import BookCard from '../Catalogue/BookCard';
 
-function NewBooks() {
+
+function Recommended({userId}) {
     const [show, setShow] = useState(false)
-    const [newBooks, setNewBooks] = useState([])
+    const [recommendedBooks, setRecommendedBooks] = useState([])
 
     useEffect(()=>{
         async function fetchData(){
-            const books = await getTop4NewBooks()
-            
+            const books = await getRecommendationsByUser(userId)
+           
             if(books !== null && books.length !== 0){
-                setNewBooks(books)
+                setRecommendedBooks(books)
             }else{
                 setShow(true)
             }
@@ -23,17 +24,17 @@ function NewBooks() {
     return (
         <>
         <br/>
+       
+        <div className="text-center">
         <br/>
-        <br/>
-        <div className="text-center bg-light">
-        <br/>
-            <h1 className="section-heading text-uppercase">New In The Library</h1>
+            <h1 className="section-heading text-uppercase">Especially for you</h1>
             <br/>
-            
+            <br/>
+            <Alert variant='info' show={show}>Sorry, There are no recommended books for now</Alert>
             <div className='justify-center'>
-                <Alert variant='info' show={show}>Sorry, There are no new books for now</Alert>
+                
             <Row>
-            {newBooks.map((result, index)=> 
+            {recommendedBooks.map((result, index)=> 
                 <Col key={index}>
                 {(result.picBook === "default_book.png")? 
                     <BookCard copyAvailable={-1} index={index} idBook={result.idBook} bookName={result.bookName} author={result.author} srcImg={"/images/" + result.picBook} showInvite={false} numInvite={null} setNumInvite={null}/>
@@ -50,4 +51,4 @@ function NewBooks() {
         );
     }
     
-export default NewBooks;
+export default Recommended;

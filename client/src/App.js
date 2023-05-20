@@ -17,6 +17,7 @@ import Forums from './components/Forum/Forums';
 import Discussions from './components/Forum/Discussions';
 import Chat from './components/Forum/Discussion/Chat';
 import { connectedIsAdmin, connectedUserId } from './DBHandle/repoUtils';
+import Recommended from './components/Recommended/Recommended';
 
 function App() {
   const [connected, setConnected] = useState(false)
@@ -43,6 +44,7 @@ function App() {
           {connected?
           <>
             <Route path='/profile' element={<Profile setKey={undefined} userId={connectedUserId}/>}></Route>
+            <Route path='/recommended' element={<Recommended userId={connectedUserId}/>}></Route>
             <Route path='/forum' element={<Forums />}></Route>
             <Route path='/forum/:idForum' element={<Discussions />}></Route>
             <Route path='/forum/:idForum/:idDisc' element={<Chat />}></Route>

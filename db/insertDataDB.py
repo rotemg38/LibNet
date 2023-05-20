@@ -14,8 +14,8 @@ json_file_users = 'libNetUsers.json'
 json_file_ratings = 'libNetRatings.json'
 json_file_borrowBooks = 'libNetBorrowBooks.json'
 
-#files = [("users", json_file_users), ("books", json_file_books), ("ratings", json_file_ratings), ("borrowbooks", json_file_borrowBooks)]
-files = [("books", json_file_books)]
+files = [("users", json_file_users), ("books", json_file_books), ("ratings", json_file_ratings), ("borrowbooks", json_file_borrowBooks)]
+#files = [("books", json_file_books)]
 # Connection URI for MongoDB Atlas
 connection_uri = f"mongodb+srv://{mongo_username}:{mongo_password}@{mongo_host}/{mongo_db}?retryWrites=true&w=majority"
 

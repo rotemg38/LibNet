@@ -4,6 +4,7 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import {CgChart, CgLogOut, CgMail, CgProfile} from 'react-icons/cg'
+import {BiBookHeart} from 'react-icons/bi'
 import {ImBooks} from 'react-icons/im'
 import { connectedIsAdmin, connectedUserName } from '../DBHandle/repoUtils';
 
@@ -30,6 +31,10 @@ function Navb({connected}) {
                     <NavDropdown.Item href="/profile">
                         <CgProfile size={20}/>&nbsp;
                         Profile
+                    </NavDropdown.Item>
+                    <NavDropdown.Item href="/recommended">
+                        <BiBookHeart size={20}/>&nbsp;
+                        Recommended
                     </NavDropdown.Item>
                     {connectedIsAdmin === 'true'?
                     <>
