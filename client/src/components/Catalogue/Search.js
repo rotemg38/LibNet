@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react';
 import { getAdvancedSearchInfo, getBooksByFilter } from '../../DBHandle/repoBooks';
 import { default as Select } from "react-select";
 
-function Search({updateResults}) {
+function Search({updateResults, setShowSpinner}) {
   
   const [advSearch, setAdvSearch] = useState('false');
   
@@ -76,6 +76,8 @@ function Search({updateResults}) {
   ];
 
   const handleSearch = async event => {
+    updateResults([])
+    setShowSpinner(true)
     let select = document.getElementById('searchSelect1')
     let input = document.getElementById('search1')
     let filter = {}
@@ -122,6 +124,7 @@ function Search({updateResults}) {
     let res = await getBooksByFilter(searchQuery)
 
     updateResults(res)
+    setShowSpinner(false)
   };
 
     return (

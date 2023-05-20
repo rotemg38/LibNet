@@ -1,11 +1,11 @@
-import { MDBBadge, MDBBtn, MDBCard } from "mdb-react-ui-kit";
+import { MDBBadge, MDBBtn, MDBCard, MDBSpinner } from "mdb-react-ui-kit";
 import React, { useMemo, useEffect, useState, useRef } from "react";
-import { Alert, Button } from "react-bootstrap";
+import { Alert, Button, Container } from "react-bootstrap";
 import TableSearchPagin from "../Utils/TableSearchPagin";
 import { getAllBooks } from "../../DBHandle/repoBooks";
 
 const BooksTable = ({setKey, setBookId}) => {
-    const [data, setData] = useState([]);
+    const [data, setData] = useState(null);
 
     const columns = 
     [
@@ -85,7 +85,15 @@ const BooksTable = ({setKey, setBookId}) => {
     <div className="justify-center">
         <h1>Books</h1>
     </div>
-    {data.length === 0?
+    {data===null?
+    <Container>
+      <div className='justify-center'>
+        <MDBSpinner className='m-5' role='status'>
+          <span className='visually-hidden'>Loading...</span>
+        </MDBSpinner>
+      </div>
+    </Container>
+    :data.length === 0?
         <Alert variant="warning" className='text-center'><p>Found No Books</p> <p>{renderBtn()}</p></Alert>
     :
         <MDBCard className="mb-3" style={{ borderRadius: '.5rem' , padding: '2rem'}}>

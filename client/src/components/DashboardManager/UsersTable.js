@@ -1,11 +1,11 @@
-import { MDBBtn, MDBCard } from "mdb-react-ui-kit";
+import { MDBBtn, MDBCard, MDBSpinner } from "mdb-react-ui-kit";
 import React, { useEffect, useState } from "react";
-import { Alert, Button } from "react-bootstrap";
+import { Alert, Button, Container } from "react-bootstrap";
 import { getAllUsers } from "../../DBHandle/repoUsers";
 import TableSearchPagin from "../Utils/TableSearchPagin";
 
 const UsersTable = ({setKey, setUserId}) => {
-    const [data, setData] = useState([]);
+    const [data, setData] = useState(null);
 
     const columns = 
     [
@@ -71,7 +71,16 @@ const UsersTable = ({setKey, setUserId}) => {
     <div className="justify-center">
         <h1>Users</h1>
     </div>
-    {data.length === 0?
+
+    {data===null?
+    <Container>
+      <div className='justify-center'>
+        <MDBSpinner className='m-5' role='status'>
+          <span className='visually-hidden'>Loading...</span>
+        </MDBSpinner>
+      </div>
+    </Container>
+    :data.length === 0?
         <Alert variant="warning" className='text-center'><p>Found No Users</p> <p>{renderBtn()}</p></Alert>
     :
     <MDBCard className="mb-3" style={{ borderRadius: '.5rem' , padding: '2rem'}}>
