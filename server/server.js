@@ -78,3 +78,6 @@ cron.schedule('0 0 1 * *', () => {
     }
   });
 });
+
+//for test the api need to export our app
+module.exports = app;
