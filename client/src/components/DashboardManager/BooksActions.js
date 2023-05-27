@@ -42,10 +42,15 @@ export default function BooksActions({setKey, bookId}) {
                 </Row>
 
                 <Row style={{padding: "4rem"}}>
-                    <Button variant='secondary' style={{padding: "2rem", border:"1px solid"}} onClick={handleShowCopiesModal}>Update Book Copied</Button>
+                    <Button variant='secondary' style={{padding: "2rem", border:"1px solid"}} onClick={handleShowCopiesModal}>Update Book Copies</Button>
                 </Row>
-            
+        </div>       
+        <div className="justify-center">
+            <Row style={{padding: "4rem"}}>
+                <Button variant='secondary' style={{padding: "2rem", border:"1px solid"}} onClick={()=>{setKey("updateBook")}}>Update Book</Button>
+            </Row>
         </div>
+        
    
         </>
 

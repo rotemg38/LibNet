@@ -67,17 +67,19 @@ function AddUser({setKey}) {
   /* Load the user picture if added */
   const loadImg = (event) => {  
     const file = event.target.files[0];
-    const reader = new FileReader();
+    if(file){
+      const reader = new FileReader();
 
-    reader.onload = (e) => {
-      const base64Image = e.target.result;
-      setUser((prevUser) => ({
-        ...prevUser,
-        ["picUser"]: base64Image,
-      }));
-    };
+      reader.onload = (e) => {
+        const base64Image = e.target.result;
+        setUser((prevUser) => ({
+          ...prevUser,
+          ["picUser"]: base64Image,
+        }));
+      };
 
-    reader.readAsDataURL(file);
+      reader.readAsDataURL(file);
+    }
   }
 
 

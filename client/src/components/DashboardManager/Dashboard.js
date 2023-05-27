@@ -11,6 +11,7 @@ import BooksActions from './BooksActions';
 import Profile from '../Profile/Profile';
 import ForumsTable from './ForumsTable';
 import AddForum from '../Forum/AddForum';
+import UpdateBook from '../Books/UpdateBook';
 
 export default function DashboardManager() {
   const [key, setKey] = useState("board")
@@ -34,6 +35,8 @@ export default function DashboardManager() {
         return <BooksActions setKey={setKey} bookId={bookId}/>
       case 'addBook':
         return <AddBook setKey={setKey}/>
+      case 'updateBook':
+        return <UpdateBook setKey={setKey} bookId={bookId}/>
       case 'books':
         return <BooksTable setKey={setKey} setBookId={setBookId}/>;
       case 'forums':
