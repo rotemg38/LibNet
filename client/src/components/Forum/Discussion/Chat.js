@@ -17,7 +17,7 @@ import { CgArrowLeft } from "react-icons/cg";
 import { Button, Container } from "react-bootstrap";
 import { useNavigate } from 'react-router-dom';
 import Message from "./Message";
-import { getDiscussionsByFilter } from "../../../DBHandle/repoDiscussions";
+import { addView, getDiscussionsByFilter } from "../../../DBHandle/repoDiscussions";
 import { getForumByFilter } from "../../../DBHandle/repoForums";
 import { addMessage, getMessagesByFilter } from "../../../DBHandle/repoMessages";
 import { connectedUserId } from "../../../DBHandle/repoUtils";
@@ -54,7 +54,12 @@ export default function Chat() {
       setMsgs(msgsData)
       
     }
-
+    // update the view to this discussion
+    async function updateView(){
+      // try to add connectedUserId to the views
+      await addView(idDisc,connectedUserId)      
+    }
+    updateView()
     fetchData()
    
 },[idForum, idDisc])
@@ -65,8 +70,10 @@ useEffect(()=>{
   
   socket.current.on('message', (message) => {
     //show only if this is message that i didnt send
-    if(message.idUser !== connectedUserId)
+    if(message.idUser !== connectedUserId){
+      message["sender"] = false
       setMsgs((messages) => [...messages, message]);
+    }
   });
   
     

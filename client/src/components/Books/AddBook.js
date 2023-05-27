@@ -9,7 +9,6 @@ import { CgArrowLeft } from 'react-icons/cg';
 function AddBook({setKey}) {
   
   const [series, setSeries] = useState("false");
-  const [img, setImg] = useState();
   const [book, setBook] = useState({
     bookName: "",
     author: "",
@@ -81,19 +80,29 @@ function AddBook({setKey}) {
 
   /* Load the book picture if added */
   const loadImg = (event) => {
-    const value = URL.createObjectURL(event.target.files[0])
-    book.picBook = value
-    setImg(event.target.files[0])
-    }
 
-    const handleSeries = (event)=> {
-        if(series === "false"){
-            setSeries("true")
-        }else{
-            setSeries("false")
-        }
-        
+    const file = event.target.files[0];
+    const reader = new FileReader();
+
+    reader.onload = (e) => {
+      const base64Image = e.target.result;
+      setBook((prevBook) => ({
+        ...prevBook,
+        ["picBook"]: base64Image,
+      }));
+    };
+
+    reader.readAsDataURL(file);
+  }
+
+  const handleSeries = (event)=> {
+    if(series === "false"){
+        setSeries("true")
+    }else{
+        setSeries("false")
     }
+      
+  }
 
   return (
     <>
@@ -151,7 +160,7 @@ function AddBook({setKey}) {
             </MDBValidationItem>
             <br/>
             <MDBValidationItem feedback=''>
-                <MDBInput name="picBook" value={img} wrapperclassname='mb-4' type="file" onChange={loadImg}/>
+                <MDBInput name="picBook" accept="image/png, image/jpeg" wrapperclassname='mb-4' type="file" onChange={loadImg}/>
             </MDBValidationItem>
             <br/>
          
@@ -172,7 +181,7 @@ function AddBook({setKey}) {
             </Row>
             <Row>
             <MDBValidationItem invalid feedback='Please provide a summary.'>
-                <MDBTextArea name="summary" label='Summary' value={book.summary} wrapperclassname='mb-4' onChange={handleChange} required />
+                <MDBTextArea rows={5} name="summary" label='Summary' value={book.summary} wrapperclassname='mb-4' onChange={handleChange} required />
             </MDBValidationItem>
             <br/>
             </Row>

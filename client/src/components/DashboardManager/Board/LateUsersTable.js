@@ -3,7 +3,7 @@ import React, {useEffect, useState } from "react";
 import { getLateUsersBorrows } from "../../../DBHandle/repoBorrowBooks";
 import TableSearchPagin from "../../Utils/TableSearchPagin";
 //import { Table, Form, FormGroup, Input, Label, Button } from "react-bootstrap";
-  
+import './styles.css'
 
 export default function LateUsersTable() {
   
@@ -51,7 +51,7 @@ export default function LateUsersTable() {
 
   return (
     
-    <TableSearchPagin dataTable={data} columns={columns} sizePage={4} infoMsg={"There is no late users"} renderBtn={()=>{}}></TableSearchPagin>
+    <TableSearchPagin idTable={"lateUsersTable"} dataTable={data} columns={columns} sizePage={4} infoMsg={"There is no late users"} renderBtn={()=>{}}></TableSearchPagin>
     
   );
 }

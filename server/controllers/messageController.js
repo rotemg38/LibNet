@@ -3,6 +3,21 @@ const MessageService = require("../services/messageService");
 
 module.exports = class Message{
    
+   static async apiGetForumActivity(req, res, next){
+      try {
+        const activity = await MessageService.getForumActivity();
+  
+        if(!activity){
+           res.status(404).json("No activity found!")
+        }else{
+          res.json(activity);
+        }
+        
+      } catch (error) {
+         res.status(500).json({error: error})
+      }
+   }
+
     static async apiGetMessagesByFilter(req, res, next){
         try {
           const msgs = await MessageService.getMessagesByFilter(req.body);

@@ -8,7 +8,7 @@ import { CgArrowLeft } from 'react-icons/cg';
 
 function AddUser({setKey}) {
   
-  const [img, setImg] = useState();
+  //const [img, setImg] = useState();
   const [user, setUser] = useState({
     firstName: "",
     lastName: "",
@@ -65,11 +65,20 @@ function AddUser({setKey}) {
   };
 
   /* Load the user picture if added */
-  const loadImg = (event) => {
-    const value = URL.createObjectURL(event.target.files[0])
-    user.picUser = value
-    setImg(event.target.files[0])
-    }
+  const loadImg = (event) => {  
+    const file = event.target.files[0];
+    const reader = new FileReader();
+
+    reader.onload = (e) => {
+      const base64Image = e.target.result;
+      setUser((prevUser) => ({
+        ...prevUser,
+        ["picUser"]: base64Image,
+      }));
+    };
+
+    reader.readAsDataURL(file);
+  }
 
 
   return (
@@ -110,7 +119,7 @@ function AddUser({setKey}) {
                 </MDBValidationItem>
                 <br/>
                 <MDBValidationItem feedback=''>
-                    <MDBInput name="picBook" value={img} wrapperclassname='mb-4' type="file" onChange={loadImg}/>
+                    <MDBInput name="picBook" accept="image/png, image/jpeg" wrapperclassname='mb-4' type="file" onChange={loadImg}/>
                 </MDBValidationItem>
             </Col>
            

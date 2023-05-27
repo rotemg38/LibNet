@@ -48,7 +48,7 @@ export default function DashboardManager() {
     <>
     
       <Row>
-        <Col className="vh-100" md="2">
+        <Col className="bg-light" md="2">
           <SideBarManager setKey={setKey}></SideBarManager>  
         </Col>
         <Col md="10">

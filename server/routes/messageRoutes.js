@@ -4,6 +4,7 @@ const router = express.Router();
 const MessageCtrl = require("../controllers/messageController");
 
 router.get("/", MessageCtrl.apiGetAllMessages);
+router.get("/forumActivity", MessageCtrl.apiGetForumActivity);
 
 router.post("/filtered", MessageCtrl.apiGetMessagesByFilter);
 router.post("/", MessageCtrl.apiCreateMessage);

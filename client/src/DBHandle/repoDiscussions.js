@@ -9,6 +9,13 @@ const server = axios.create({
 
 /* HELPFUL FUNCTION TO USE THE DB REGARDING DISCUSSION TABLE: */
 
+
+export async function addView(idDisc, idUser) {
+    var response = await server.put(`/addView/${idDisc}/${idUser}`);
+    console.log(response.data);   
+    
+}
+
 export async function addDiscussion(data) {
     console.log(data)
     var response = await server.post("/", data);

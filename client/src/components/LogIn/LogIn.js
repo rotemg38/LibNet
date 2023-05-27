@@ -43,7 +43,7 @@ function LogIn({setConnected, setAdminConnected, setUsername}) {
                     sessionStorage.setItem("userName", res["firstName"]);
                     sessionStorage.setItem("isAdmin", res["admin"]);
                     setConnected(true)
-                    setAdminConnected(Boolean(res["admin"]))
+                    setAdminConnected(res["admin"])
                     setUsername(res["firstName"])
                     //Redirect to home page
                     navigate("/")

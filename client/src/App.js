@@ -32,16 +32,16 @@ function App() {
     }
 
     if(connectedIsAdmin !== null){
-      setAdminConnected(true)
-    }else{
-      setAdminConnected(false)
+      if(connectedIsAdmin == "true"){
+        setAdminConnected(true)
+      }else{
+        setAdminConnected(false)
+      }
+      
     }
 
-    if(connectedUserName!== null){
-      setUsername(connectedUserName)
-    }else{
-      setUsername(null)
-    }
+    setUsername(connectedUserName)
+    
 
       
   },[])

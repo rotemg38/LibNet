@@ -64,6 +64,7 @@ export default function Discussions() {
                     Open
                 </MDBBtn> </Link>
                 disc.createdAt = new Date(disc.createdAt).toLocaleDateString()
+                
                 return disc
                 
             })

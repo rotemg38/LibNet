@@ -9,6 +9,21 @@ const server = axios.create({
 
 /* HELPFUL FUNCTION TO USE THE DB REGARDING MESSAGES TABLE: */
 
+
+export async function getForumActivity() {
+    try
+    {
+        var response = await server.get("/forumActivity");
+        var data = await response.data;
+        
+        return data;
+        
+    } catch(e){
+        //activity not found
+        return [];   
+    }     
+}
+
 export async function addMessage(data) {
     console.log(data)
     var response = await server.post("/", data);

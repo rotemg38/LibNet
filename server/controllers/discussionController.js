@@ -57,6 +57,24 @@ module.exports = class Discussion{
         }
     }
 
+    static async apiAddView(req, res, next){
+      try {
+
+        let discId = req.params.discId || {};
+        let idUser = req.params.idUser || {};
+        const updatedDiscussions = await DiscussionService.addView(discId,idUser);
+
+        if(updatedDiscussions.modifiedCount === 0){
+            throw new Error("Unable to update the discussion, error occord");
+        }
+
+        res.json(updatedDiscussions);
+
+      } catch (error) {
+         res.status(500).json({error: error});
+      }
+    }
+
     static async apiUpdateDiscussion(req, res, next){
       try {
 

@@ -9,6 +9,8 @@ router.get("/withReplies/:forumId", DiscussionCtrl.apiGetDiscussionsByForumWithR
 router.post("/filtered", DiscussionCtrl.apiGetDiscussionsByFilter);
 router.post("/", DiscussionCtrl.apiCreateDiscussion);
 router.put("/disc/:discId", DiscussionCtrl.apiUpdateDiscussion);
+router.put("/addView/:discId/:idUser", DiscussionCtrl.apiAddView);
+
 router.delete("/disc/:discId", DiscussionCtrl.apiDeleteDiscussion);
 
 module.exports =  router;

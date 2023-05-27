@@ -42,7 +42,11 @@ export default function BorrowBookModal({userId,show, setShow}) {
             await addBorrowBook(borowBooks)
             for (let index = 0; index < borowBooks.length; index++) {
                 const element = borowBooks[index];
-                await updateOrderBook(element.idBook,element.idUser,{"filter":{"status": "waiting"},"status":"received"})    
+                try{
+                    await updateOrderBook(element.idBook,element.idUser,{"filter":{"status": "waiting"},"status":"received"})    
+                }catch (error) {
+                    console.log("didnt update orderBook");
+                }
             }
             
             alert("Book borrowed successfully!");

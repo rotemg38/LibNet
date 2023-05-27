@@ -2,10 +2,17 @@ const Discussion = require("../models/Discussion");
 
 module.exports = class DiscussionService{
    
+   
     static async getAllDiscussions(){
         try {
             const data = await Discussion.find();
-            return data;
+            const filteredResults =data.filter((element)=>{
+                element.seenNum = element.seenNum.length
+                return element
+            })
+            
+            
+            return filteredResults;
         } catch (error) {
             console.log(`Could not fetch data ${error}`)
         }
@@ -13,8 +20,14 @@ module.exports = class DiscussionService{
 
     static async getDiscussionsByFilter(filter){
         try {
+            
             const data = await Discussion.find(filter);
-            return data;
+            const filteredResults =data.filter((element)=>{
+                element.seenNum = element.seenNum.length
+                return element
+            })
+            
+            return filteredResults;
         } catch (error) {
             console.log(`Could not fetch data ${error}`)
         }
@@ -55,7 +68,9 @@ module.exports = class DiscussionService{
                 if(String(element["idForum"]) !== String(forumId)){
                     flag = false
                 }
-                
+            
+                element.seenNum = element.seenNum.length
+
                 if(flag)
                     result.push(element)
             })
@@ -74,13 +89,25 @@ module.exports = class DiscussionService{
             data["createdAt"] = Date.now()
             let discussionId = await Discussion.count();
             data["idDisc"] = discussionId + 1
-            data["seenNum"] = 1
+            data["seenNum"] = [data["idUserOwner"]]
             
             const response = await new Discussion(data).save();
 
             return response;
         } catch (error) {
             console.log(error);
+        }
+    }
+
+    static async addView(discussionId, idUser){
+        try {
+
+            const updateResponse =  await Discussion.updateOne(  
+                { idDisc: discussionId, seenNum: { $ne: idUser } },
+                { $addToSet: { seenNum: idUser } });
+            return updateResponse;
+        } catch (error) {
+            console.log(`Could not fetch data ${error}`)
         }
     }
 

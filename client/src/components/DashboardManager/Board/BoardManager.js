@@ -4,6 +4,7 @@ import LateUsersTable from './LateUsersTable';
 import AgePie from './AgePie';
 import TopBorrowedBooks from './TopBorrowed';
 import TopRatedBooks from './TopRated';
+import ForumMsgsTransfer from './ForumMsgsTrasfer';
 
 export default function BoardManager() {
    
@@ -49,6 +50,27 @@ export default function BoardManager() {
               </MDBRow>
             </MDBCard>
             </MDBRow>
+
+            <MDBRow className="g-0">
+            <MDBCard className="mb-3" style={{ borderRadius: '.5rem' }}>
+              <MDBRow className="g-0">
+             
+                <MDBCol >
+                  <MDBCardBody className="p-4">
+                    <MDBTypography tag="h3">Forum Activity</MDBTypography>
+                    <hr className="mt-0" />
+                    
+                    <MDBRow className="pt-1">
+                      <ForumMsgsTransfer></ForumMsgsTransfer>
+                        
+                    </MDBRow>
+                  </MDBCardBody>
+                </MDBCol>
+              </MDBRow>
+            </MDBCard>
+            </MDBRow>
+
+
            
          
           </MDBCol>

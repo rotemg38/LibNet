@@ -4,7 +4,7 @@ import { useTable } from 'react-table';
 import { Input, Label } from "reactstrap";
 import Paging from "./Paging";
 
-const TableSearchPagin = ({dataTable, columns, sizePage, infoMsg, renderBtn}) => {
+const TableSearchPagin = ({idTable, dataTable, columns, sizePage, infoMsg, renderBtn}) => {
     
     const [searchValue, setSearchValue] = useState('');
     const [pageIndex, setPageIndex] = useState(0);
@@ -72,7 +72,7 @@ const TableSearchPagin = ({dataTable, columns, sizePage, infoMsg, renderBtn}) =>
             />
             {renderBtn()}
             </InputGroup>
-            <Table {...getTableProps()} striped>
+            <Table id={idTable} {...getTableProps()} striped>
             <thead>
                 {headerGroups.map(headerGroup => (
                 <tr {...headerGroup.getHeaderGroupProps()}>

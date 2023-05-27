@@ -30,7 +30,7 @@ const DiscussionSchema = Schema({
     },
 
     seenNum:{
-        type: Number
+        type: Array
     }
 
 });

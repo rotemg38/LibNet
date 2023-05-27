@@ -143,9 +143,8 @@ module.exports = class BorrowBooksService{
 
     static async getLateUsersBorrows(){
         try {
-            const currentDate = new Date();
-            const currentMonth = currentDate.getMonth()-1;
-            const currentYear = currentDate.getFullYear();
+            const lastDate = new Date();
+            lastDate.setMonth(lastDate.getMonth()-1);
 
             const aggr = [   
                 {
@@ -166,7 +165,7 @@ module.exports = class BorrowBooksService{
                 },
                 {
                     $match:{
-                        dateBorrow : {$lt: new Date(currentYear, currentMonth , 1)},
+                        dateBorrow : {$lt: lastDate},
                         status: "borrowed"
                     }
                 },
