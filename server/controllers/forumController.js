@@ -62,7 +62,7 @@ module.exports = class Forum {
          const updatedForum = await ForumService.updateForum(forumId, req.body);
 
          if (updatedForum.modifiedCount === 0) {
-            throw new Error("Unable to update the forum, error occord");
+            throw ("Unable to update the forum, error occord");
          }
 
          res.json(updatedForum);

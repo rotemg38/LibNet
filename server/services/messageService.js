@@ -39,7 +39,7 @@ module.exports = class MessageService {
 
             return filteredResults;
         } catch (error) {
-            console.log(`Could not fetch data ${error}`)
+            throw(`Could not fetch data ${error}`)
         }
     }
 
@@ -48,7 +48,7 @@ module.exports = class MessageService {
             const data = await Message.find();
             return data;
         } catch (error) {
-            console.log(`Could not fetch data ${error}`)
+            throw(`Could not fetch data ${error}`)
         }
     }
 
@@ -57,7 +57,7 @@ module.exports = class MessageService {
             const data = await Message.find(filter);
             return data;
         } catch (error) {
-            console.log(`Could not fetch data ${error}`)
+            throw(`Could not fetch data ${error}`)
         }
     }
 
@@ -71,7 +71,7 @@ module.exports = class MessageService {
 
             return response;
         } catch (error) {
-            console.log(error);
+            throw(error);
         }
     }
 
@@ -81,7 +81,7 @@ module.exports = class MessageService {
             const updateResponse = await Message.updateOne({ idMsg: msgId }, updatedData);
             return updateResponse;
         } catch (error) {
-            console.log(`Could not update message ${error}`);
+            throw(`Could not update message ${error}`);
         }
     }
 
@@ -90,7 +90,7 @@ module.exports = class MessageService {
             const deletedResponse = await Message.findOneAndDelete({ idMsg: msgId });
             return deletedResponse;
         } catch (error) {
-            console.log(`Could not delete message ${error}`);
+            throw(`Could not delete message ${error}`);
         }
     }
 }

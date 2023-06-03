@@ -51,7 +51,7 @@ module.exports = class BorrowBook {
          const updatedRequest = await RequestService.updateRequest(reqId, req.body);
 
          if (updatedRequest.modifiedCount === 0) {
-            throw new Error("Unable to update the request, error occord");
+            throw ("Unable to update the request, error occord");
          }
 
          res.json(updatedRequest);

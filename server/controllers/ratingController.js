@@ -113,7 +113,7 @@ module.exports = class BorrowBook {
          const updatedRate = await RatingService.updateRating(bookId, userId, req.body);
 
          if (updatedRate.modifiedCount === 0) {
-            throw new Error("Unable to update borrowed book, error occord");
+            throw ("Unable to update borrowed book, error occord");
          }
 
          res.json(updatedRate);

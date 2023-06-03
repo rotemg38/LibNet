@@ -46,7 +46,7 @@ module.exports = class RatingService {
 
             return result;
         } catch (error) {
-            console.log(`Could not fetch data ${error}`)
+            throw(`Could not fetch data ${error}`)
         }
     }
 
@@ -93,7 +93,7 @@ module.exports = class RatingService {
 
             return result;
         } catch (error) {
-            console.log(`Could not fetch data ${error}`)
+            throw(`Could not fetch data ${error}`)
         }
     }
 
@@ -102,7 +102,7 @@ module.exports = class RatingService {
             const data = await Rating.find();
             return data;
         } catch (error) {
-            console.log(`Could not fetch data ${error}`)
+            throw(`Could not fetch data ${error}`)
         }
     }
 
@@ -111,7 +111,7 @@ module.exports = class RatingService {
             const data = await Rating.findOne(filter);
             return data;
         } catch (error) {
-            console.log(`Could not fetch data ${error}`)
+            throw(`Could not fetch data ${error}`)
         }
     }
 
@@ -125,7 +125,7 @@ module.exports = class RatingService {
 
             return data[0];
         } catch (error) {
-            console.log(`Could not fetch data ${error}`)
+            throw(`Could not fetch data ${error}`)
         }
     }
 
@@ -169,7 +169,7 @@ module.exports = class RatingService {
 
             return result;
         } catch (error) {
-            console.log(`Could not fetch data ${error}`)
+            throw(`Could not fetch data ${error}`)
         }
 
     }
@@ -181,7 +181,7 @@ module.exports = class RatingService {
 
             return response;
         } catch (error) {
-            console.log(error);
+            throw(error);
         }
     }
 
@@ -191,7 +191,7 @@ module.exports = class RatingService {
             const updateResponse = await Rating.updateOne({ idBook: bookId, idUser: userId }, updatedData);
             return updateResponse;
         } catch (error) {
-            console.log(`Could not update Borrowed Book ${error}`);
+            throw(`Could not update Borrowed Book ${error}`);
         }
     }
 
@@ -200,7 +200,7 @@ module.exports = class RatingService {
             const deletedResponse = await Rating.findOneAndDelete({ idBook: bookId, idUser: userId });
             return deletedResponse;
         } catch (error) {
-            console.log(`Could not delete book ${error}`);
+            throw(`Could not delete book ${error}`);
         }
     }
 }

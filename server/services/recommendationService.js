@@ -15,8 +15,7 @@ module.exports = class RecommendationService {
 
             return data;
         } catch (error) {
-            console.error("Error while getting recommendations:", error);
-            throw error;
+            throw `Error while getting recommendations: ${error}`;
         }
     }
 

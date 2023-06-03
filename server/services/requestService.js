@@ -8,7 +8,7 @@ module.exports = class RequestService {
             const data = await Request.find();
             return data;
         } catch (error) {
-            console.log(`Could not fetch data ${error}`)
+            throw(`Could not fetch data ${error}`)
         }
     }
 
@@ -17,7 +17,7 @@ module.exports = class RequestService {
             const data = await Request.findOne(filter);
             return data;
         } catch (error) {
-            console.log(`Could not fetch data ${error}`)
+            throw(`Could not fetch data ${error}`)
         }
     }
 
@@ -32,7 +32,7 @@ module.exports = class RequestService {
 
             return response;
         } catch (error) {
-            console.log(error);
+            throw(error);
         }
     }
 
@@ -42,7 +42,7 @@ module.exports = class RequestService {
             const updateResponse = await Request.updateOne({ idReq: reqId }, updatedData);
             return updateResponse;
         } catch (error) {
-            console.log(`Could not update request ${error}`);
+            throw(`Could not update request ${error}`);
         }
     }
 
@@ -51,7 +51,7 @@ module.exports = class RequestService {
             const deletedResponse = await Request.findOneAndDelete({ idReq: reqId });
             return deletedResponse;
         } catch (error) {
-            console.log(`Could not delete request ${error}`);
+            throw(`Could not delete request ${error}`);
         }
     }
 }

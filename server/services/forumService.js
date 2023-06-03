@@ -7,7 +7,7 @@ module.exports = class ForumService {
             const data = await Forum.find();
             return data;
         } catch (error) {
-            console.log(`Could not fetch data ${error}`)
+            throw(`Could not fetch data ${error}`)
         }
     }
     static async getAllForumsWithDiscNum() {
@@ -38,7 +38,7 @@ module.exports = class ForumService {
             let result = data.sort((a, b) => (a.idForum > b.idForum) ? 1 : ((b.idForum > a.idForum) ? -1 : 0))
             return result;
         } catch (error) {
-            console.log(`Could not fetch data ${error}`)
+            throw(`Could not fetch data ${error}`)
         }
     }
 
@@ -47,7 +47,7 @@ module.exports = class ForumService {
             const data = await Forum.findOne(filter);
             return data;
         } catch (error) {
-            console.log(`Could not fetch data ${error}`)
+            throw(`Could not fetch data ${error}`)
         }
     }
 
@@ -61,7 +61,7 @@ module.exports = class ForumService {
 
             return response;
         } catch (error) {
-            console.log(error);
+            throw(error);
         }
     }
 
@@ -71,7 +71,7 @@ module.exports = class ForumService {
             const updateResponse = await Forum.updateOne({ idForum: forumId }, updatedData);
             return updateResponse;
         } catch (error) {
-            console.log(`Could not update forum ${error}`);
+            throw(`Could not update forum ${error}`);
         }
     }
 
@@ -80,7 +80,7 @@ module.exports = class ForumService {
             const deletedResponse = await Forum.findOneAndDelete({ idForum: forumId });
             return deletedResponse;
         } catch (error) {
-            console.log(`Could not delete forum ${error}`);
+            throw(`Could not delete forum ${error}`);
         }
     }
 }

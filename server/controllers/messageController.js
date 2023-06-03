@@ -63,7 +63,7 @@ module.exports = class Message {
          const updatedMsg = await MessageService.updateMessage(msgId, req.body);
 
          if (updatedMsg.modifiedCount === 0) {
-            throw new Error("Unable to update the message, error occord");
+            throw ("Unable to update the message, error occord");
          }
 
          res.json(updatedMsg);
