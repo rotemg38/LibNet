@@ -3,33 +3,33 @@ const Schema = mongoose.Schema;
 
 
 const DiscussionSchema = Schema({
-    idDisc:{
+    idDisc: {
         type: Number,
         unique: true,
         required: true
     },
 
-    idForum:{
+    idForum: {
         type: Number,
         required: true
     },
 
-    idUserOwner:{
+    idUserOwner: {
         type: Number,
         required: true
     },
 
-    discName:{
+    discName: {
         type: String,
         required: true
     },
 
-    createdAt:{
+    createdAt: {
         type: Date,
         require: true
     },
 
-    seenNum:{
+    seenNum: {
         type: Array
     }
 

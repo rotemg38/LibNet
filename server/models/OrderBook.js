@@ -3,18 +3,18 @@ const Schema = mongoose.Schema;
 
 
 const orderBookSchema = Schema({
-    
-    idUser:{
+
+    idUser: {
         type: Number,
         required: true
     },
 
-    idBook:{
+    idBook: {
         type: Number,
         required: true
     },
 
-    dateInv:{
+    dateInv: {
         type: Date,
         require: true
     },
@@ -24,7 +24,7 @@ const orderBookSchema = Schema({
         required: true,
     },
     //date the book arrive to the library and the user can get it
-    dateArrive:{
+    dateArrive: {
         type: Date
     }
 });

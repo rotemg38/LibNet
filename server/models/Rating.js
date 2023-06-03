@@ -3,23 +3,23 @@ const Schema = mongoose.Schema;
 
 
 const RatingSchema = Schema({
-    idUser:{
+    idUser: {
         type: Number,
         required: true
     },
 
-    idBook:{
+    idBook: {
         type: Number,
         required: true
     },
 
-    createdAt:{
+    createdAt: {
         type: Date,
         require: true
     },
 
-    rateNum:{
-        type:Number,
+    rateNum: {
+        type: Number,
         require: true
     }
 

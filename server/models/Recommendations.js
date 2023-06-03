@@ -3,15 +3,15 @@ const Schema = mongoose.Schema;
 
 
 const RecommendationsSchema = Schema({
-    idUser:{
+    idUser: {
         type: Number,
         required: true
     },
 
-    books:{
+    books: {
         type: Array
     }
-    
+
 
 });
 

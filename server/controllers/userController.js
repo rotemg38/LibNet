@@ -17,7 +17,7 @@ module.exports = class User{
             }else{
                 const updatedUser = await UserService.updateUser(id,{"password": req.body["new"]});
                 if(updatedUser.modifiedCount === 0){
-                    throw new Error("Unable to update user, error occord");
+                    throw ("Unable to update user, error occord");
                 }
                 
                 res.json("password updated!");
@@ -63,7 +63,6 @@ module.exports = class User{
         }
  
     }
-    
 
    static async apiGetAllUsers(req, res, next){
       try {
@@ -79,6 +78,7 @@ module.exports = class User{
       }
 
    }
+
    static async apiGetGroupByAges(req, res, next){
       try {
          const users = await UserService.getGroupByAges();
@@ -120,10 +120,10 @@ module.exports = class User{
         const updatedUser = await UserService.updateUser(id,req.body);
 
          if(updatedUser.modifiedCount === 0){
-            throw new Error("Unable to update user, error occord");
+            throw ("Unable to update user, error occord");
          }
 
-         res.json("user updated!");
+         res.json(updatedUser);
 
       } catch (error) {
          res.status(500).json({error: error});

@@ -3,27 +3,27 @@ const Schema = mongoose.Schema;
 
 
 const ForumSchema = Schema({
-    idForum:{
+    idForum: {
         type: Number,
         unique: true,
         required: true
     },
 
-    forumName:{
+    forumName: {
         type: String,
         required: true
     },
 
-    description:{
+    description: {
         type: String,
         required: true
     },
 
-    createdAt:{
+    createdAt: {
         type: Date,
         require: true
     }
-    
+
 
 });
 

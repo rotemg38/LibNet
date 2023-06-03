@@ -3,28 +3,28 @@ const Schema = mongoose.Schema;
 
 
 const borrowBookSchema = Schema({
-    idUser:{
+    idUser: {
         type: Number,
         required: true
     },
 
-    idBook:{
+    idBook: {
         type: Number,
         required: true
     },
 
-    dateBorrow:{
+    dateBorrow: {
         type: Date,
         require: true
     },
 
     //when the user actually returned the book
-    returnDate:{
+    returnDate: {
         type: Date
     },
 
-    numLong:{
-        type:Number,
+    numLong: {
+        type: Number,
         require: true
     },
 

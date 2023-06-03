@@ -3,28 +3,28 @@ const Schema = mongoose.Schema;
 
 
 const MessageSchema = Schema({
-    idDisc:{
+    idDisc: {
         type: Number,
         required: true
     },
-    
-    idMsg:{
+
+    idMsg: {
         type: Number,
         unique: true,
         required: true
     },
 
-    idUser:{
+    idUser: {
         type: Number,
         required: true
     },
 
-    content:{
+    content: {
         type: String,
         required: true
     },
 
-    createdAt:{
+    createdAt: {
         type: Date,
         require: true
     }

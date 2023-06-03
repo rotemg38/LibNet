@@ -3,37 +3,37 @@ const Schema = mongoose.Schema;
 
 
 const RequestSchema = Schema({
-    idReq:{
+    idReq: {
         type: Number,
         unique: true,
         required: true
     },
 
-    from:{
+    from: {
         type: String,
         required: true
     },
 
-    mail:{
+    mail: {
         type: String,
         required: true
     },
 
-    subject:{
+    subject: {
         type: String,
         required: true
     },
 
-    content:{
+    content: {
         type: String,
         required: true
     },
 
-    createdAt:{
+    createdAt: {
         type: Date,
         require: true
     },
-    seen:{
+    seen: {
         type: Boolean,
         require: true
     }

@@ -4,7 +4,7 @@ const Book = require("../models/Book");
 module.exports = class BooksService {
     static async getAllCategories() {
         try {
-            const categories = await Book.distinct('category').exec();
+            const categories = await Book.distinct('category');
             return categories;
         } catch (error) {
             throw (`Could not fetch books ${error}`)
@@ -12,7 +12,7 @@ module.exports = class BooksService {
     }
     static async getAllLanguages() {
         try {
-            const languages = await Book.distinct('language').exec();
+            const languages = await Book.distinct('language');
             return languages;
         } catch (error) {
             throw (`Could not fetch books ${error}`)
@@ -20,7 +20,7 @@ module.exports = class BooksService {
     }
     static async getAllLocations() {
         try {
-            const locations = await Book.distinct('location').exec();
+            const locations = await Book.distinct('location');
             return locations;
         } catch (error) {
             throw (`Could not fetch books ${error}`)
@@ -73,13 +73,15 @@ module.exports = class BooksService {
             data["idBook"] = bookid + 1
             data["createdAt"] = Date.now()
             const newBook = JSON.parse(JSON.stringify(data));
-            const response = await new Book(newBook).save();
+            const response = await Book.create(newBook);
+            //const response = await new Book(newBook).save();
             return response;
         } catch (error) {
             throw (error);
         }
 
     }
+    
     static async getBookById(bookId) {
         try {
             const book = await Book.findOne({ idBook: bookId });

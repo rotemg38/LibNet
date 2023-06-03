@@ -3,49 +3,49 @@ const Schema = mongoose.Schema;
 
 
 const userSchema = Schema({
-    idUser:{
-      type: Number,
-      unique: true,
-      required: true,
+    idUser: {
+        type: Number,
+        unique: true,
+        required: true,
     },
 
-    firstName :{
+    firstName: {
         type: String,
         required: true,
     },
-    lastName :{
+    lastName: {
         type: String,
         required: true,
     },
-    picUser :{
+    picUser: {
         type: String,
         required: true,
     },
-    age :{
+    age: {
         type: Number,
         required: true,
     },
-    createdAt :{
+    createdAt: {
         type: Date,
         required: true,
     },
-    address :{
+    address: {
         type: String,
         required: true,
     },
-    password :{
+    password: {
         type: String,
         required: true,
     },
-    mail :{
+    mail: {
         type: String,
         required: true,
     },
-    isAdmin :{
+    isAdmin: {
         type: Boolean,
         required: true,
     },
-    limitBooks :{
+    limitBooks: {
         type: Number,
         required: true,
     }

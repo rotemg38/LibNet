@@ -25,7 +25,7 @@ const InvitedBooks = ({userId}) => {
     },
     {
       Header: "Invite Date",
-      accessor: "dateInv",
+      accessor: "dateInvLocal",
     },
     {
       Header: "Status",
@@ -47,7 +47,7 @@ const InvitedBooks = ({userId}) => {
         }else{
           book["status"] = <MDBBadge color='warning' pill>{book["status"]}</MDBBadge>
         }
-        book["dateInv"] = new Date(book.dateInv).toLocaleDateString()
+        
         let strId = "btnCancle"+book.idBook
         book["action"] = <MDBBtn 
                             id={strId}
@@ -62,6 +62,7 @@ const InvitedBooks = ({userId}) => {
                             >
                               <ImCancelCircle></ImCancelCircle>
                           </MDBBtn> 
+        book["dateInvLocal"] = new Date(book.dateInv).toLocaleDateString()
         return book
       })
       setData(d);
