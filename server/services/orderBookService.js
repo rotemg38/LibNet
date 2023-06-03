@@ -153,7 +153,7 @@ module.exports = class OrderBooksService {
             filter["idBook"] = bookId
             filter["idUser"] = userId
             console.log(filter)
-            
+
             const updatedData = JSON.parse(JSON.stringify(data));
             console.log(updatedData)
             const updateResponse = await OrderBook.updateOne(filter, updatedData);

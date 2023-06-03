@@ -1,10 +1,10 @@
 const Rating = require("../models/Rating");
 
-module.exports = class RatingService{
-   
-    static async getRatingUsersByFilter(filter){
+module.exports = class RatingService {
+
+    static async getRatingUsersByFilter(filter) {
         try {
-            const aggr = [   
+            const aggr = [
                 {
                     $lookup: {
                         from: "users",
@@ -13,46 +13,46 @@ module.exports = class RatingService{
                         as: "user"
                     }
                 },
-                {   
-                    $project:{
-                        _id : 0,
-                        idUser : 1,
-                        idBook : 1,
-                        createdAt : 1,
-                        rateNum : 1,
-                        firstName : { $arrayElemAt: ["$user.firstName", 0] },
-                        lastName : { $arrayElemAt: ["$user.lastName", 0] },
-                        mail : { $arrayElemAt: ["$user.mail", 0] }
-                        
-                    } 
+                {
+                    $project: {
+                        _id: 0,
+                        idUser: 1,
+                        idBook: 1,
+                        createdAt: 1,
+                        rateNum: 1,
+                        firstName: { $arrayElemAt: ["$user.firstName", 0] },
+                        lastName: { $arrayElemAt: ["$user.lastName", 0] },
+                        mail: { $arrayElemAt: ["$user.mail", 0] }
+
+                    }
                 }
             ]
-           
+
             const data = await Rating.aggregate(aggr);
-            
+
             let result = []
             //loop over results and filter them according to the given filter
-            data.map((element)=>{
+            data.map((element) => {
                 let flag = true;
                 for (const [key, value] of Object.entries(filter)) {
-                    if(String(element[key]) !== String(value)){
+                    if (String(element[key]) !== String(value)) {
                         flag = false
                     }
                 }
-                
-                if(flag)
+
+                if (flag)
                     result.push(element)
             })
-            
+
             return result;
         } catch (error) {
             console.log(`Could not fetch data ${error}`)
         }
     }
 
-    static async getRatingBooksByFilter(filter){
+    static async getRatingBooksByFilter(filter) {
         try {
-            const aggr = [   
+            const aggr = [
                 {
                     $lookup: {
                         from: "books",
@@ -61,43 +61,43 @@ module.exports = class RatingService{
                         as: "book"
                     }
                 },
-                {   
-                    $project:{
-                        _id : 0,
-                        idUser : 1,
-                        idBook : 1,
-                        createdAt : 1,
-                        rateNum : 1,
-                        bookName : { $arrayElemAt: ["$book.bookName", 0] },
-                        author : { $arrayElemAt: ["$book.author", 0] },
-                        copyAvailable : { $arrayElemAt: ["$book.copyAvailable", 0] }
-                    } 
+                {
+                    $project: {
+                        _id: 0,
+                        idUser: 1,
+                        idBook: 1,
+                        createdAt: 1,
+                        rateNum: 1,
+                        bookName: { $arrayElemAt: ["$book.bookName", 0] },
+                        author: { $arrayElemAt: ["$book.author", 0] },
+                        copyAvailable: { $arrayElemAt: ["$book.copyAvailable", 0] }
+                    }
                 }
             ]
-           
+
             const data = await Rating.aggregate(aggr);
-            
+
             let result = []
             //loop over results and filter them according to the given filter
-            data.map((element)=>{
+            data.map((element) => {
                 let flag = true;
                 for (const [key, value] of Object.entries(filter)) {
-                    if(String(element[key]) !== String(value)){
+                    if (String(element[key]) !== String(value)) {
                         flag = false
                     }
                 }
-                
-                if(flag)
+
+                if (flag)
                     result.push(element)
             })
-            
+
             return result;
         } catch (error) {
             console.log(`Could not fetch data ${error}`)
         }
     }
 
-    static async getAllRatings(){
+    static async getAllRatings() {
         try {
             const data = await Rating.find();
             return data;
@@ -106,7 +106,7 @@ module.exports = class RatingService{
         }
     }
 
-    static async getRatingByFilter(filter){
+    static async getRatingByFilter(filter) {
         try {
             const data = await Rating.findOne(filter);
             return data;
@@ -115,11 +115,11 @@ module.exports = class RatingService{
         }
     }
 
-    static async getAvgRateByBook(bookId){
+    static async getAvgRateByBook(bookId) {
         try {
             const data = await Rating.aggregate([
                 { $group: { _id: "$idBook", avgRating: { $avg: "$rateNum" } } },
-                { $match : {_id: parseInt(bookId)} },
+                { $match: { _id: parseInt(bookId) } },
                 { $project: { _id: 0, avgRating: 1 } }
             ]);
 
@@ -129,8 +129,8 @@ module.exports = class RatingService{
         }
     }
 
-    static async getTopRatedBooks(){
-        try{
+    static async getTopRatedBooks() {
+        try {
             const result = await Rating.aggregate([
                 {
                     $group: {
@@ -166,7 +166,7 @@ module.exports = class RatingService{
                     $limit: 5
                 }
             ]);
-            
+
             return result;
         } catch (error) {
             console.log(`Could not fetch data ${error}`)
@@ -174,7 +174,7 @@ module.exports = class RatingService{
 
     }
 
-    static async createRating(data){
+    static async createRating(data) {
         try {
             data["createdAt"] = Date.now()
             const response = await new Rating(data).save();
@@ -185,19 +185,19 @@ module.exports = class RatingService{
         }
     }
 
-    static async updateRating(bookId, userId, data){
-            try {
-                const updatedData= JSON.parse(JSON.stringify(data));
-                const updateResponse =  await Rating.updateOne({idBook: bookId, idUser: userId}, updatedData);
-                return updateResponse;
-            } catch (error) {
-                console.log(`Could not update Borrowed Book ${error}` );
+    static async updateRating(bookId, userId, data) {
+        try {
+            const updatedData = JSON.parse(JSON.stringify(data));
+            const updateResponse = await Rating.updateOne({ idBook: bookId, idUser: userId }, updatedData);
+            return updateResponse;
+        } catch (error) {
+            console.log(`Could not update Borrowed Book ${error}`);
         }
     }
 
-    static async deleteRating(bookId, userId){
+    static async deleteRating(bookId, userId) {
         try {
-            const deletedResponse = await Rating.findOneAndDelete({idBook: bookId, idUser: userId});
+            const deletedResponse = await Rating.findOneAndDelete({ idBook: bookId, idUser: userId });
             return deletedResponse;
         } catch (error) {
             console.log(`Could not delete book ${error}`);

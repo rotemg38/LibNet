@@ -1,5 +1,5 @@
 const express = require('express')
-const mongoose =  require("mongoose");
+const mongoose = require("mongoose");
 const books = require("./routes/booksRoutes");
 const users = require("./routes/userRouter");
 const borrowBook = require("./routes/borrowBookRouter");
@@ -26,11 +26,11 @@ const { exec } = require('child_process');
 
 const pass = "LGTWKvafiyatoX3N"
 const db_name = "libNet"
-const uri = "mongodb+srv://rotemg:"+pass+"@clusterlibnet.6wi0mvp.mongodb.net/"+db_name+"?retryWrites=true&w=majority";
+const uri = "mongodb+srv://rotemg:" + pass + "@clusterlibnet.6wi0mvp.mongodb.net/" + db_name + "?retryWrites=true&w=majority";
 
 mongoose.connect(uri)
-.then(res => console.log(`Connection Succesful ${res}`))
-.catch(err => console.log(`Error in DB connection ${err}`));
+  .then(res => console.log(`Connection Succesful ${res}`))
+  .catch(err => console.log(`Error in DB connection ${err}`));
 
 
 // create application/x-www-form-urlencoded parser
@@ -65,7 +65,7 @@ io.on('connection', (socket) => {
 });
 
 
-server.listen(3000,()=>{console.log("Server started on port 3000")})
+server.listen(3000, () => { console.log("Server started on port 3000") })
 
 
 // '0 0 1 * *' means the job will run at midnight (00:00) on the first day of every month

@@ -81,7 +81,7 @@ module.exports = class BooksService {
         }
 
     }
-    
+
     static async getBookById(bookId) {
         try {
             const book = await Book.findOne({ idBook: bookId });

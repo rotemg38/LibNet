@@ -14,7 +14,7 @@ const endpoint = '/api/borrowBooks'
 // Create an express app and use the router
 const app = express();
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(endpoint, router);
 
 
@@ -33,7 +33,7 @@ describe('Tests For: apiGetAllBorrowBooks', () => {
     jest.spyOn(BorrowBook, "find").mockImplementation(() => mockGetAllborrowBooks())
 
     // Perform the GET request to the endpoint
-    const response = await request(app).get(endpoint+'/');
+    const response = await request(app).get(endpoint + '/');
 
     // Assertions
     expect(response.statusCode).toBe(200);
@@ -48,7 +48,7 @@ describe('Tests For: apiGetAllBorrowBooks', () => {
     jest.spyOn(BorrowBook, "find").mockImplementation(() => mockGetAllborrowBooks())
 
     // Perform the GET request to the endpoint
-    const response = await request(app).get(endpoint+'/');
+    const response = await request(app).get(endpoint + '/');
 
     // Assertions
     expect(response.statusCode).toBe(404);
@@ -63,7 +63,7 @@ describe('Tests For: apiGetAllBorrowBooks', () => {
     jest.spyOn(BorrowBook, "find").mockImplementation(() => mockGetAllborrowBooks())
 
     // Perform the GET request to the endpoint
-    const response = await request(app).get(endpoint+'/');
+    const response = await request(app).get(endpoint + '/');
 
     // Assertions
     expect(response.statusCode).toBe(500);
@@ -81,35 +81,35 @@ describe('Tests For: apiUpdateBorrowBook', () => {
   });
 
   test('Test update borrowBook success', async () => {
-    const mockUpdateBorrowBook = jest.fn(() => {return {"modifiedCount":1}} )
+    const mockUpdateBorrowBook = jest.fn(() => { return { "modifiedCount": 1 } })
 
     // Mock the controller function
     jest.spyOn(BorrowBook, "updateOne").mockImplementation(() => mockUpdateBorrowBook())
 
     // Perform the PUT request to the endpoint
-    const response = await request(app).put(endpoint+`/borrowBook/${1}/${1}`).send({idborrowBook:1});
+    const response = await request(app).put(endpoint + `/borrowBook/${1}/${1}`).send({ idborrowBook: 1 });
 
     // Assertions
     expect(mockUpdateBorrowBook).toHaveBeenCalledTimes(1);
-    expect(response.body).toEqual({"modifiedCount":1});
+    expect(response.body).toEqual({ "modifiedCount": 1 });
     expect(response.statusCode).toBe(200);
-    
+
   });
 
   test('Test update borrowBook fail', async () => {
-    const mockUpdateBorrowBook = jest.fn(() => { return {"modifiedCount":0} })
+    const mockUpdateBorrowBook = jest.fn(() => { return { "modifiedCount": 0 } })
 
     // Mock the controller function
     jest.spyOn(BorrowBook, "updateOne").mockImplementation(() => mockUpdateBorrowBook())
 
     // Perform the PUT request to the endpoint
-    const response = await request(app).put(endpoint+`/borrowBook/${1}/${1}`).send({idborrowBook:1});
+    const response = await request(app).put(endpoint + `/borrowBook/${1}/${1}`).send({ idborrowBook: 1 });
 
     // Assertions
     expect(mockUpdateBorrowBook).toHaveBeenCalledTimes(1);
     expect(response.statusCode).toBe(500);
-    expect(response.body).toEqual({"error" : "Unable to update borrowed book, error occord"});
-    
+    expect(response.body).toEqual({ "error": "Unable to update borrowed book, error occord" });
+
   });
 
   test('Test get exception', async () => {
@@ -119,7 +119,7 @@ describe('Tests For: apiUpdateBorrowBook', () => {
     jest.spyOn(BorrowBook, "updateOne").mockImplementation(() => mockUpdateBorrowBook())
 
     // Perform the PUT request to the endpoint
-    const response = await request(app).put(endpoint+`/borrowBook/${1}/${1}`).send({idborrowBook:1});
+    const response = await request(app).put(endpoint + `/borrowBook/${1}/${1}`).send({ idborrowBook: 1 });
 
     // Assertions
     expect(response.statusCode).toBe(500);
@@ -138,29 +138,29 @@ describe('Tests For: apiDeleteborrowBook', () => {
 
 
   test('Test delete borrowBook by id', async () => {
-    const mockDeleteborrowBookById = jest.fn(() => {return {"idborrowBook": 1}})
+    const mockDeleteborrowBookById = jest.fn(() => { return { "idborrowBook": 1 } })
 
     // Mock the controller function
     jest.spyOn(BorrowBook, "findOneAndDelete").mockImplementation(() => mockDeleteborrowBookById())
 
     // Perform the DELETE request to the endpoint
-    const response = await request(app).delete(endpoint+`/borrowBook/${1}/${1}`);
+    const response = await request(app).delete(endpoint + `/borrowBook/${1}/${1}`);
 
     // Assertions
     expect(mockDeleteborrowBookById).toHaveBeenCalledTimes(1);
     expect(response.statusCode).toBe(200);
-    expect(response.body).toEqual({"idborrowBook": 1});
-    
+    expect(response.body).toEqual({ "idborrowBook": 1 });
+
   });
 
   test('Test get null', async () => {
-    const mockDeleteborrowBookById = jest.fn(() => null )
+    const mockDeleteborrowBookById = jest.fn(() => null)
 
     // Mock the controller function
     jest.spyOn(BorrowBook, "findOneAndDelete").mockImplementation(() => mockDeleteborrowBookById())
 
     // Perform the DELETE request to the endpoint
-    const response = await request(app).delete(endpoint+`/borrowBook/${1}/${1}`);
+    const response = await request(app).delete(endpoint + `/borrowBook/${1}/${1}`);
 
     // Assertions
     expect(mockDeleteborrowBookById).toHaveBeenCalledTimes(1);
@@ -175,7 +175,7 @@ describe('Tests For: apiDeleteborrowBook', () => {
     jest.spyOn(BorrowBook, "findOneAndDelete").mockImplementation(() => mockDeleteborrowBookById())
 
     // Perform the DELETE request to the endpoint
-    const response = await request(app).delete(endpoint+`/borrowBook/${1}/${1}`);
+    const response = await request(app).delete(endpoint + `/borrowBook/${1}/${1}`);
 
     // Assertions
     expect(mockDeleteborrowBookById).toHaveBeenCalledTimes(1);
@@ -191,22 +191,22 @@ describe('Tests For: apiCreateborrowBook', () => {
     // Clear all mock function calls after each test
     jest.clearAllMocks();
   });
-  const borrowBooks = [{idBorrowBook:2 , borrowBookName: "mock borrowBook"}]
+  const borrowBooks = [{ idBorrowBook: 2, borrowBookName: "mock borrowBook" }]
 
   test('Test insertMany borrowBook', async () => {
-    const mockInsertManyBorrowBook = jest.fn(() => {return borrowBooks} )
-    
+    const mockInsertManyBorrowBook = jest.fn(() => { return borrowBooks })
+
     // Mock the controller function
     jest.spyOn(BorrowBook, "insertMany").mockImplementation(() => mockInsertManyBorrowBook())
-    
+
     // Perform the POST request to the endpoint
     const response = await request(app).post(endpoint).send(borrowBooks);
-    
+
     // Assertions
     expect(mockInsertManyBorrowBook).toHaveBeenCalledTimes(1);
     expect(response.body).toEqual(borrowBooks);
     expect(response.statusCode).toBe(200);
-    
+
   });
 
   test('Test get exception', async () => {
@@ -241,7 +241,7 @@ describe('Tests For: apiGetLateUsersBorrows', () => {
     jest.spyOn(BorrowBook, "aggregate").mockImplementation(() => mockGetLateUsers())
 
     // Perform the GET request to the endpoint
-    const response = await request(app).get(endpoint+'/lateUsers');
+    const response = await request(app).get(endpoint + '/lateUsers');
 
     // Assertions
     expect(response.statusCode).toBe(200);
@@ -256,7 +256,7 @@ describe('Tests For: apiGetLateUsersBorrows', () => {
     jest.spyOn(BorrowBook, "aggregate").mockImplementation(() => mockGetLateUsers())
 
     // Perform the GET request to the endpoint
-    const response = await request(app).get(endpoint+'/lateUsers');
+    const response = await request(app).get(endpoint + '/lateUsers');
 
     // Assertions
     expect(response.statusCode).toBe(404);
@@ -271,7 +271,7 @@ describe('Tests For: apiGetLateUsersBorrows', () => {
     jest.spyOn(BorrowBook, "aggregate").mockImplementation(() => mockGetLateUsers())
 
     // Perform the GET request to the endpoint
-    const response = await request(app).get(endpoint+'/lateUsers');
+    const response = await request(app).get(endpoint + '/lateUsers');
 
     // Assertions
     expect(response.statusCode).toBe(500);

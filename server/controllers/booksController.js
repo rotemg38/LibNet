@@ -113,7 +113,7 @@ module.exports = class Book {
 
          let id = req.params.id || {};
          const updatedBook = await BooksService.updateBook(id, req.body);
-         
+
          if (updatedBook.modifiedCount === 0) {
             throw ("Unable to update book, error occord");
          }
