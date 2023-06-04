@@ -1,0 +1,129 @@
+const Discussion = require("../models/Discussion");
+
+module.exports = class DiscussionService {
+
+    static async getAllDiscussions() {
+        try {
+            const data = await Discussion.find();
+            const filteredResults = data.filter((element) => {
+                element.seenNum = element.seenNum.length
+                return element
+            })
+
+
+            return filteredResults;
+        } catch (error) {
+            throw (`Could not fetch data ${error}`)
+        }
+    }
+
+    static async getDiscussionsByFilter(filter) {
+        try {
+
+            const data = await Discussion.find(filter);
+            const filteredResults = data.filter((element) => {
+                element.seenNum = element.seenNum.length
+                return element
+            })
+
+            return filteredResults;
+        } catch (error) {
+            throw (`Could not fetch data ${error}`)
+        }
+    }
+
+    static async getDiscussionsByForumWithReplies(forumId) {
+        try {
+
+            const data = await Discussion.aggregate([
+
+                {
+                    $lookup: {
+                        from: "messages",
+                        localField: "idDisc",
+                        foreignField: "idDisc",
+                        as: "messages" // join the messages collection using the idDisc field and store the result in an array called messages
+                    }
+                },
+                {
+                    $group: {
+                        _id: "$idDisc",
+                        idDisc: { $first: "$idDisc" },
+                        idForum: { $first: "$idForum" },
+                        idUserOwner: { $first: "$idUserOwner" },
+                        discName: { $first: "$discName" },
+                        createdAt: { $first: "$createdAt" },
+                        seenNum: { $first: "$seenNum" },
+                        replies: { $sum: { $cond: [{ $isArray: "$messages" }, { $size: "$messages" }, 0] } } // calculate the number of messages in the messages array and store it in replies
+                    }
+                }
+            ]);
+
+            let result = []
+            //loop over results and filter them according to the given filter
+            data.map((element) => {
+                let flag = true;
+
+                if (String(element["idForum"]) !== String(forumId)) {
+                    flag = false
+                }
+
+                element.seenNum = element.seenNum.length
+
+                if (flag)
+                    result.push(element)
+            })
+
+            result = result.sort((a, b) => (new Date(a.createdAt) > new Date(b.createdAt)) ? -1 : ((new Date(b.createdAt) > new Date(a.createdAt)) ? 1 : 0))
+            return result;
+        } catch (error) {
+            throw (`Could not fetch data ${error}`)
+        }
+    }
+
+    static async createDiscussion(data) {
+        try {
+            data["createdAt"] = Date.now()
+            let discussionId = await Discussion.count();
+            data["idDisc"] = discussionId + 1
+            data["seenNum"] = [data["idUserOwner"]]
+
+            const response = await Discussion.create(data);
+
+            return response;
+        } catch (error) {
+            throw (error);
+        }
+    }
+
+    static async addView(discussionId, idUser) {
+        try {
+
+            const updateResponse = await Discussion.updateOne(
+                { idDisc: discussionId, seenNum: { $ne: idUser } },
+                { $addToSet: { seenNum: idUser } });
+            return updateResponse;
+        } catch (error) {
+            throw (`Could not fetch data ${error}`)
+        }
+    }
+
+    static async updateDiscussion(discussionId, data) {
+        try {
+            const updatedData = JSON.parse(JSON.stringify(data));
+            const updateResponse = await Discussion.updateOne({ idDisc: discussionId }, updatedData);
+            return updateResponse;
+        } catch (error) {
+            throw (`Could not update discussion ${error}`);
+        }
+    }
+
+    static async deleteDiscussion(discussionId) {
+        try {
+            const deletedResponse = await Discussion.findOneAndDelete({ idDisc: discussionId });
+            return deletedResponse;
+        } catch (error) {
+            throw (`Could not delete discussion ${error}`);
+        }
+    }
+}

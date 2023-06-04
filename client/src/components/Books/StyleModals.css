@@ -1,0 +1,9 @@
+#modalBorrowBook.modal-dialog {
+    max-width: fit-content
+}
+#modalInviteBook.modal-dialog {
+    max-width: fit-content
+}
+#modalReturnBook.modal-dialog {
+    max-width: fit-content
+}

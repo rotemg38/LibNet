@@ -1,0 +1,28 @@
+
+.center {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.error {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: center;
+}
+
+.number {
+  font-weight: 900;
+  font-size: 15rem;
+  line-height: 1;
+}
+
+
+.text {
+  margin-top: 3rem;
+  font-weight: 300;
+  color: "#293b4";
+}

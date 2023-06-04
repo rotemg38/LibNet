@@ -3,20 +3,67 @@ import {
   MDBContainer,
   MDBCard,
   MDBCardBody,
-  MDBCardImage,
   MDBRow,
-  MDBCol,
-  MDBIcon,
-  MDBInput,
-  MDBCheckbox
+  MDBInput
 }
 from 'mdb-react-ui-kit';
 import { MDBValidation, MDBValidationItem } from 'mdb-react-ui-kit';
-function LogIn() {
+import { useState } from 'react';
+import { Alert } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import { signIn } from '../../DBHandle/repoUsers';
+import React  from 'react';
+
+function LogIn({setConnected, setAdminConnected, setUsername}) {
+    const navigate = useNavigate()
+    const [error, setError] = useState("false")
+    const [mail, setMail] = useState("")
+    const [password, setPassword] = useState("")
+
+    const handleSignIn = async (event) => {
+        setError("false")
+        event.preventDefault();
+        const form = event.currentTarget;
+        if (form.checkValidity() === false) {
+            event.stopPropagation();
+        } else {
+            try {
+                const res = await signIn({"mail":mail, "password":password})
+                if(res === null){
+                    
+                   document.getElementsByName("formLogIn")[0].classList.remove("was-validated")
+                   document.getElementById("password").classList.add("is-invalid")
+                   document.getElementById("email").classList.add("is-invalid")
+                   
+                   setError("true")
+                }else{
+                    
+                    sessionStorage.setItem("jwt", res["token"]);
+                    sessionStorage.setItem("userId", res["userId"]);
+                    sessionStorage.setItem("userName", res["firstName"]);
+                    sessionStorage.setItem("isAdmin", res["admin"]);
+                    setConnected(true)
+                    setAdminConnected(res["admin"])
+                    setUsername(res["firstName"])
+                    //Redirect to home page
+                    navigate("/")
+                    
+                }
+               
+            } catch (err) {
+                console.error(err);
+            }
+        }
+      };
+
+
     return (
      <>
+    {error === "true"?(<Alert variant="danger" className='text-center'>email or password are incorrect</Alert>):<></>}
+      
      <MDBContainer className="my-5 justify-center">
-
+        
+       
         <MDBCard style={{ width: '100%', maxWidth: '800px' }}>
         <MDBRow className='g-0'>
 
@@ -29,18 +76,19 @@ function LogIn() {
                 <br/>
                 <br/>
                 <div className='justify-center'>
-                    
-                    <MDBValidation noValidate id='formLogin' className='text-center' style={{ width: '100%', maxWidth: '500px' }}>
+                   
+                    <MDBValidation name="formLogIn" noValidate id='formLogin' onSubmit={handleSignIn} className='text-center' style={{ width: '100%', maxWidth: '500px' }}>
                         <MDBValidationItem invalid feedback='Please provide your email.'>
-                            <MDBInput type='email' label='Email address' id="email" v-model='email' wrapperclassname='mb-4' required size="lg"/>
+                            <MDBInput name="mail" type='email' label='Email address' id="email" value={mail} wrapperclassname='mb-4' required size="lg" onChange={(e) => {document.getElementById("email").classList.remove("is-invalid");setMail(e.target.value)}}/>
                         </MDBValidationItem>
                         <br/>
                         <MDBValidationItem invalid feedback='Please provide your password.'>
-                            <MDBInput wrapperClass='mb-4' label='Password' id='pass' type='password' size="lg" required/>
+                            <MDBInput name="password" wrapperClass='mb-4' label='Password' id='password' value={password} type='password' size="lg" required onChange={(e) => {document.getElementById("password").classList.remove("is-invalid"); setPassword(e.target.value)}}/>
                         </MDBValidationItem>
                         <br/>
                         <MDBBtn className="mb-4 px-5" color='primary' size='lg'>Login</MDBBtn>
                     </MDBValidation>
+ 
                 </div>
                 <div className='justify-center'>
                     {/*<a className="small text-muted" href="#!">Forgot password?</a>*/}
