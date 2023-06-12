@@ -29,10 +29,76 @@ https://github.com/rotemg38/LibNet/assets/100946838/415a6927-557a-4ede-97f9-60b8
 
 
 ## Getting Started
+Considering you have mongodb database.
 
-Need to run the server side and then the client side.
+Create in folder server .env file contain the following variables:
+```
+MONGO_USER = "<FILL>"
+MONGO_PASS = "<FILL>"
+MONGO_HOST = "<FILL>"
+MONGO_DB = "<FILL>"
+```
 
-Make sure to follow the instructions in each folder first.
+**NOTE:** The project use the connection string of Mongodb Atlas.
+
+
+### Installing & Executing program
+First, make sure that npm and nodejs is installed on your computer.
+
+Download the project and via your prefered IDE run the application.
+
+I recommend on VSCode as an excellent IDE therefore I will explain how to run the project on this IDE.
+
+Now you need to run the server side and then the client side.
+
+### Run Server
+
+After opening the project in VSCode, open VSCode Terminal tab. 
+
+run the command to enter the folder:
+```
+cd server
+```
+And make sure to **delete package-lock.json file.**
+
+Then run the following commands:
+
+1)
+```
+npm install
+```
+(This command install all dependencies according to the package.json file in the project)
+
+2)
+```
+npm start
+```
+(To run the server)
+
+
+### Run Client
+
+Now open new tab to run the client side.
+
+run the command to enter the folder:
+```
+cd client
+```
+And make sure to **delete package-lock.json file.**
+
+Then run the following commands:
+
+1)
+```
+npm install
+```
+(This command install all dependencies according to the package.json file in the project)
+
+2)
+```
+npm start
+```
+(To run the client)
 
 
 
