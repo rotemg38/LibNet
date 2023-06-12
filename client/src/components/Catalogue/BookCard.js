@@ -33,7 +33,7 @@ function BookCard({ copyAvailable, idBook, bookName, author, srcImg, showInvite,
 
   return (
 
-    <Card style={{ width: '18rem', alignSelf: 'center' }}>
+    <Card style={{ width: '18rem', alignSelf: 'center', height:'100%' }}>
       <Card.Img variant="top" src={srcImg} style={{ alignSelf: 'center', height: "25rem" }} />
       {copyAvailable > 0 ?
         <Badge bg='success' className='float-start'>Available</Badge>

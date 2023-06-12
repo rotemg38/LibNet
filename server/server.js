@@ -73,11 +73,10 @@ cron.schedule('0 0 1 * *', () => {
   exec('python3 libnet_hybrid_book_recommendation.py', (error, stdout, stderr) => {
     if (error) {
       console.error(`Error executing Python script: ${error.message}`);
+      console.log(stdout)
     } else {
       console.log('ML algorithm python script executed successfully');
+      console.log(stdout)
     }
   });
 });
-
-//for test the api need to export our app
-module.exports = app;
