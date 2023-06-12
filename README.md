@@ -9,9 +9,11 @@ This is a library management project written in nodejs for server-side and react
 
 ## Description
 Main pages logged as admin:
-
-<img alt="LibNet Video" src="assets/LibNet_Record_Edited.mov" height="400" />
  
+
+https://github.com/rotemg38/LibNet/assets/100946838/415a6927-557a-4ede-97f9-60b826979268
+
+
 
 ## Technologies
 - ReactJs
