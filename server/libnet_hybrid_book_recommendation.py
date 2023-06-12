@@ -18,6 +18,9 @@ The result of the model inserted to the mongodb database of LibNet.
 
 #! pip install surprise
 
+#! pip install python-dotenv
+
+
 from pymongo import MongoClient
 import json
 import pandas as pd
@@ -29,17 +32,23 @@ from surprise import Dataset, Reader, SVD, accuracy
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error
 
+# for db configuration
+from dotenv.main import load_dotenv
+import os
+
+
 """## DB Info
 
 Information to connect to the database
 """
 
+load_dotenv()
+
 # MongoDB Atlas connection details
-mongo_username = 'rotemg'
-mongo_password = 'LGTWKvafiyatoX3N'
-mongo_host = 'clusterlibnet.6wi0mvp.mongodb.net'
-mongo_port = 27017
-mongo_db = 'libNet'
+mongo_username = os.environ['MONGO_USER']
+mongo_password = os.environ['MONGO_PASS']
+mongo_host = os.environ['MONGO_HOST']
+mongo_db = os.environ['MONGO_DB']
 
 # Connection URI for MongoDB Atlas
 connection_uri = f"mongodb+srv://{mongo_username}:{mongo_password}@{mongo_host}/{mongo_db}?retryWrites=true&w=majority"
