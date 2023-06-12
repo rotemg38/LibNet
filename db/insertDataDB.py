@@ -1,12 +1,16 @@
 import json
 from pymongo import MongoClient
+# for db configuration
+from dotenv.main import load_dotenv
+import os
+
+load_dotenv()
 
 # MongoDB Atlas connection details
-mongo_username = 'rotemg'
-mongo_password = 'LGTWKvafiyatoX3N'
-mongo_host = 'clusterlibnet.6wi0mvp.mongodb.net'
-mongo_port = 27017
-mongo_db = 'libNet'
+mongo_username = os.environ['MONGO_USER']
+mongo_password = os.environ['MONGO_PASS']
+mongo_host = os.environ['MONGO_HOST']
+mongo_db = os.environ['MONGO_DB']
 
 # JSON file path
 json_file_books = 'libNetBooks.json'

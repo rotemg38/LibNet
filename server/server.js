@@ -11,6 +11,7 @@ const discussions = require("./routes/discussionRoutes");
 const messages = require("./routes/messageRoutes");
 const recommendations = require("./routes/recommendationRoutes");
 
+require('dotenv').config()
 const http = require('http');
 const app = express()
 const server = http.createServer(app);
@@ -24,9 +25,13 @@ app.use(cors({ origin: 'http://localhost:3001' }));
 const cron = require('node-cron');
 const { exec } = require('child_process');
 
-const pass = "LGTWKvafiyatoX3N"
-const db_name = "libNet"
-const uri = "mongodb+srv://rotemg:" + pass + "@clusterlibnet.6wi0mvp.mongodb.net/" + db_name + "?retryWrites=true&w=majority";
+
+const mongo_username = process.env.MONGO_USER
+const mongo_password = process.env.MONGO_PASS
+const mongo_host = process.env.MONGO_HOST
+const mongo_db = process.env.MONGO_DB
+
+const uri = "mongodb+srv://" + mongo_username + ":" + mongo_password + "@"+mongo_host+"/" + mongo_db + "?retryWrites=true&w=majority";
 
 mongoose.connect(uri)
   .then(res => console.log(`Connection Succesful ${res}`))
@@ -67,17 +72,15 @@ io.on('connection', (socket) => {
 
 server.listen(3000, () => { console.log("Server started on port 3000") })
 
-
 // '0 0 1 * *' means the job will run at midnight (00:00) on the first day of every month
 cron.schedule('0 0 1 * *', () => {
   exec('python3 libnet_hybrid_book_recommendation.py', (error, stdout, stderr) => {
     if (error) {
       console.error(`Error executing Python script: ${error.message}`);
+      console.log(stdout)
     } else {
       console.log('ML algorithm python script executed successfully');
+      console.log(stdout)
     }
   });
 });
-
-//for test the api need to export our app
-module.exports = app;
