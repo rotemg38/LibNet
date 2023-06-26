@@ -72,7 +72,7 @@ export default function Discussions() {
         }
 
         fetchData()
-    },[idForum])
+    },[idForum, show])
 
     const renderBtn = ()=>{
         return <Button onClick={()=>{setShow(true)}}>Add Discussion</Button>
