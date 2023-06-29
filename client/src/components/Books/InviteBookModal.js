@@ -171,7 +171,7 @@ export default function InviteBookModal({ userId, show, setShow }) {
 
                         </Col>
                         <Col md="10">
-                            <TableSearchPagin dataTable={data} columns={columns} sizePage={2} infoMsg={"Loading Books..."} renderBtn={() => { }}></TableSearchPagin>
+                            <TableSearchPagin dataTable={data} columns={columns} sizePage={8} infoMsg={"Loading Books..."} renderBtn={() => { }}></TableSearchPagin>
                         </Col>
                     </Row>
 

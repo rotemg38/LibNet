@@ -13,7 +13,7 @@ const NotFound = () => {
                 <div className="center">
                     <div className="error">
                         <div className="number">4</div>
-                        <img sizes='3' alt="ConfusedEmoji" src="ConfusedEmoji.png" style={{ width: "18rem", height: "18rem" }}></img>
+                        <img sizes='3' alt="ConfusedEmoji" src="/ConfusedEmoji.png" style={{ width: "18rem", height: "18rem" }}></img>
                         <div className="number">4</div>
                     </div>
 
